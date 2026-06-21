@@ -285,7 +285,10 @@ function renderCard(l, idx){
     ? pill('Rear Entertainment ✓', 'confirmed')
     : pill('Rear Displays – unconfirmed', 'warn');
   const drPill  = l.drivetrain ? pill(l.drivetrain, 'info') : '';
-  const cpoPill = l.cpo ? pill('CPO', 'confirmed') : '';
+  const titlePill = l.title_confirmed
+    ? pill('Clean Title ✓', 'confirmed')
+    : pill('Title not Carfax-verified', 'warn');
+  const prefPill = l.preferred_trim ? pill('Sport Platinum ★', 'info') : '';
 
   const vdp = l.vdp_url || l.dealer_website || '#';
   const hasVdp = vdp && vdp !== '#';
@@ -346,7 +349,7 @@ function renderCard(l, idx){
     </div>
 
     <div class="feature-pills">
-      ${scPill}${rsePill}${drPill}${cpoPill}
+      ${scPill}${rsePill}${titlePill}${drPill}${prefPill}
     </div>
 
     <div class="location-row">

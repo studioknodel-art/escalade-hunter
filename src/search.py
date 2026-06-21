@@ -123,34 +123,69 @@ def check_required_features(listing: dict) -> dict[str, bool]:
     }
 
 def is_clean_title(listing: dict) -> bool:
-    # Use Carfax field if available, otherwise text-scan
+    """Pass unless there's explicit evidence of a branded title.
+
+    MarketCheck sets carfax_clean_title=True only when it has a positive Carfax
+    signal; False/null just means "no Carfax data" (it's False even on brand-new
+    cars with 2 miles). So we never reject on the flag being False — we only
+    reject when listing text actually mentions a salvage/branded condition.
+    """
     if listing.get("carfax_clean_title") is True:
         return True
-    if listing.get("carfax_clean_title") is False:
-        return False
-    dirty = ["salvage", "rebuilt", "flood", "lemon", "fire", "hail", "junk", "branded"]
-    return not any(f in json.dumps(listing).lower() for f in dirty)
+    text = " ".join([
+        listing.get("heading") or "",
+        listing.get("seller_comments") or "",
+        str(listing.get("title_status") or ""),
+    ]).lower()
+    dirty = ["salvage", "rebuilt", "flood", "lemon", "fire damage",
+             "hail damage", "junk", "branded title", "rebuild"]
+    return not any(f in text for f in dirty)
+
+def has_clean_title_confirmed(listing: dict) -> bool:
+    """True only when Carfax explicitly confirms a clean title."""
+    return listing.get("carfax_clean_title") is True
 
 # ── API calls ──────────────────────────────────────────────────────────────────
 
 def fetch_listings(radius: int) -> list[dict]:
+    """Page through ALL ESVs in radius.
+
+    MarketCheck ignores the year_min/price_max/miles_max query params on this
+    plan, so we must pull every result and filter client-side. We still send
+    the params (harmless if honored) but never rely on them. A hard cap of
+    MAX_ROWS protects the daily API quota.
+    """
     url = "https://mc-api.marketcheck.com/v2/search/car/active"
-    params = {
-        "api_key":   MARKETCHECK_API_KEY,
-        "make":      CRITERIA["make"],
-        "model":     CRITERIA["model"],
-        "year_min":  CRITERIA["year_min"],
-        "price_max": CRITERIA["price_max"],
-        "miles_max": CRITERIA["miles_max"],
-        "zip":       SEARCH_ZIP,
-        "radius":    radius,
-        "rows":      50,
-        "start":     0,
-    }
-    resp = requests.get(url, params=params, timeout=30)
-    resp.raise_for_status()
-    data = resp.json()
-    return data.get("listings", [])
+    PAGE = 50
+    MAX_ROWS = 400
+    all_listings: list[dict] = []
+    start = 0
+    while start < MAX_ROWS:
+        params = {
+            "api_key":   MARKETCHECK_API_KEY,
+            "make":      CRITERIA["make"],
+            "model":     CRITERIA["model"],
+            "year_min":  CRITERIA["year_min"],
+            "price_max": CRITERIA["price_max"],
+            "miles_max": CRITERIA["miles_max"],
+            "zip":       SEARCH_ZIP,
+            "radius":    radius,
+            "sort_by":   "price",
+            "sort_order": "asc",
+            "rows":      PAGE,
+            "start":     start,
+        }
+        resp = requests.get(url, params=params, timeout=30)
+        resp.raise_for_status()
+        data = resp.json()
+        page = data.get("listings", [])
+        all_listings.extend(page)
+        num_found = data.get("num_found", 0)
+        start += PAGE
+        if start >= num_found or not page:
+            break
+        time.sleep(0.3)
+    return all_listings
 
 def fetch_market_stats(year: int) -> float:
     url = "https://mc-api.marketcheck.com/v2/price_stats/car/active"
@@ -171,8 +206,19 @@ def fetch_market_stats(year: int) -> float:
 # ── Filters ────────────────────────────────────────────────────────────────────
 
 def passes_trim_filter(listing: dict) -> bool:
-    trim = get_trim(listing).strip()
-    return any(t.lower() in trim.lower() for t in CRITERIA["trims"])
+    """Match the top Platinum trims regardless of word order.
+
+    For 2023+ Escalade ESV the only trims containing "platinum" are the ones
+    we want (Sport Platinum / Platinum Sport, Premium Luxury Platinum). Data
+    sources vary the word order, so match on the keyword, not an exact phrase.
+    Pre-2021 standalone "Platinum"/"Platinum Edition" trims are already removed
+    by the year>=2023 guard in passes_hard_specs().
+    """
+    return "platinum" in get_trim(listing).lower()
+
+def is_preferred_trim(listing: dict) -> bool:
+    """Sport Platinum is the user's preferred variant."""
+    return "sport" in get_trim(listing).lower() and "platinum" in get_trim(listing).lower()
 
 def passes_drivetrain_filter(listing: dict) -> bool:
     dr = get_drivetrain(listing).upper()
@@ -285,6 +331,8 @@ def build_web_record(listing: dict, deal_text: str, deal_color_hex: str, market_
         "description":      listing.get("seller_comments"),
         "super_cruise":     features.get("super_cruise", False),
         "rear_entertainment": features.get("rear_entertainment", False),
+        "title_confirmed":  has_clean_title_confirmed(listing),
+        "preferred_trim":   is_preferred_trim(listing),
         "deal_label":       deal_text,
         "deal_color":       deal_color_hex,
         "market_median":    market_median,
