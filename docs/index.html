@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escalade Hunter</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --brand:#1a2e4a;
+    --brand-light:#2c4a6e;
+    --accent:#c8a84b;
+    --accent-dark:#a8882e;
+    --bg:#f4f5f7;
+    --surface:#fff;
+    --surface2:#f9fafb;
+    --border:#e1e4e8;
+    --text:#1a1d23;
+    --text2:#5a6270;
+    --text3:#8a93a0;
+    --platinum:#7B2D8B;
+    --best:#00AA44;
+    --good:#3399FF;
+    --okay:#FFA500;
+    --above:#FF3333;
+    --radius:10px;
+    --shadow:0 1px 3px rgba(0,0,0,.08),0 4px 12px rgba(0,0,0,.05);
+  }
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+  /* ── Header ── */
+  header{background:var(--brand);color:#fff;padding:0 24px}
+  .header-inner{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:16px;height:60px}
+  .logo{font-size:20px;font-weight:700;letter-spacing:-.3px;white-space:nowrap}
+  .logo span{color:var(--accent)}
+  .header-meta{font-size:13px;color:rgba(255,255,255,.55);margin-left:auto}
+
+  /* ── Search bar ── */
+  .searchbar{background:var(--brand-light);padding:16px 24px}
+  .searchbar-inner{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .filter-group{display:flex;flex-direction:column;gap:4px}
+  .filter-group label{font-size:11px;color:rgba(255,255,255,.6);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+  .filter-group select,.filter-group input[type=range]{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:6px;padding:6px 10px;font-size:13px;height:34px;min-width:130px}
+  .filter-group select option{color:var(--text);background:#fff}
+  .range-row{display:flex;align-items:center;gap:8px}
+  .range-row input[type=range]{min-width:110px}
+  .range-val{font-size:12px;color:rgba(255,255,255,.8);min-width:50px}
+  .results-count{margin-left:auto;color:rgba(255,255,255,.7);font-size:13px;white-space:nowrap}
+  .sort-group{display:flex;flex-direction:column;gap:4px}
+  .sort-group label{font-size:11px;color:rgba(255,255,255,.6);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+  .sort-group select{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:6px;padding:6px 10px;font-size:13px;height:34px;min-width:160px}
+  .sort-group select option{color:var(--text);background:#fff}
+
+  /* ── Main layout ── */
+  .main{max-width:1280px;margin:0 auto;padding:24px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+
+  /* ── Listing card ── */
+  .card{background:var(--surface);border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .15s}
+  .card:hover{box-shadow:0 4px 16px rgba(0,0,0,.12)}
+
+  /* Photo section */
+  .photo-wrap{position:relative;aspect-ratio:16/10;background:#e8ebef;overflow:hidden;cursor:pointer}
+  .photo-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+  .photo-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px;flex-direction:column;gap:8px}
+  .photo-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.45);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+  .photo-nav:hover{background:rgba(0,0,0,.7)}
+  .photo-prev{left:8px}
+  .photo-next{right:8px}
+  .photo-count{position:absolute;bottom:10px;right:10px;background:rgba(0,0,0,.55);color:#fff;font-size:11px;padding:3px 8px;border-radius:20px}
+  .deal-badge{position:absolute;top:10px;left:10px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:.4px}
+  .new-badge{position:absolute;top:10px;right:10px;background:#c82333;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.5px}
+
+  /* Card body */
+  .card-body{padding:16px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .card-title{font-size:17px;font-weight:700;line-height:1.2;color:var(--text)}
+  .card-trim{font-size:13px;color:var(--text2)}
+  .price-row{display:flex;align-items:baseline;gap:10px}
+  .price{font-size:22px;font-weight:700;color:var(--brand)}
+  .savings{font-size:12px;color:var(--best);font-weight:600}
+  .above-market{font-size:12px;color:var(--above);font-weight:600}
+  .market-note{font-size:11px;color:var(--text3)}
+
+  .specs-row{display:flex;gap:16px;flex-wrap:wrap}
+  .spec{display:flex;flex-direction:column;gap:2px}
+  .spec-label{font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);font-weight:600}
+  .spec-val{font-size:13px;font-weight:600;color:var(--text)}
+
+  .feature-pills{display:flex;flex-wrap:wrap;gap:6px}
+  .pill{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:600;border:1px solid}
+  .pill-confirmed{background:#e8f8ee;color:#1a7a3c;border-color:#b8e8c8}
+  .pill-warn{background:#fff8e1;color:#8a6000;border-color:#ffe082}
+  .pill-info{background:#e8f0ff;color:#1a3a8a;border-color:#b8ceff}
+
+  .location-row{font-size:12px;color:var(--text2);display:flex;align-items:center;gap:6px}
+  .radius-tag{font-size:10px;background:var(--bg);border:1px solid var(--border);padding:2px 7px;border-radius:20px;color:var(--text3);font-weight:600}
+
+  .card-footer{padding:12px 16px;border-top:1px solid var(--border);display:flex;gap:10px;background:var(--surface2)}
+  .btn{flex:1;padding:9px 0;border-radius:7px;border:none;font-size:13px;font-weight:600;cursor:pointer;text-align:center;text-decoration:none;display:inline-block;transition:opacity .15s}
+  .btn:hover{opacity:.85}
+  .btn-primary{background:var(--brand);color:#fff}
+  .btn-secondary{background:transparent;color:var(--brand);border:1.5px solid var(--brand)}
+  .btn-disabled{background:var(--border);color:var(--text3);cursor:default}
+  .btn-disabled:hover{opacity:1}
+
+  /* Expand details */
+  .details{display:none;padding:0 16px 16px;border-top:1px solid var(--border);margin-top:-10px}
+  .details.open{display:block}
+  .details-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;margin:12px 0 0}
+  .detail-row{font-size:12px;display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)}
+  .detail-row:last-child{border-bottom:none}
+  .detail-key{color:var(--text2)}
+  .detail-val{font-weight:600;color:var(--text);text-align:right;max-width:60%}
+  .description{font-size:12px;color:var(--text2);line-height:1.6;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+  .expand-btn{background:none;border:none;color:var(--brand);font-size:12px;font-weight:600;cursor:pointer;padding:0;margin-top:2px;text-align:left}
+
+  /* Empty state */
+  .empty{text-align:center;padding:80px 24px;color:var(--text2)}
+  .empty h2{font-size:20px;margin-bottom:8px;color:var(--text)}
+  .empty p{font-size:14px;line-height:1.6}
+
+  /* Loading */
+  .loading{text-align:center;padding:80px;color:var(--text2);font-size:15px}
+
+  /* Modal lightbox */
+  .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:999;align-items:center;justify-content:center}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:90vw;max-height:90vh;object-fit:contain;border-radius:4px}
+  .lightbox-close{position:fixed;top:20px;right:24px;color:#fff;font-size:32px;cursor:pointer;background:none;border:none;line-height:1}
+  .lightbox-nav{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:#fff;width:48px;height:48px;border-radius:50%;cursor:pointer;font-size:24px;display:flex;align-items:center;justify-content:center}
+  .lightbox-prev{left:16px}
+  .lightbox-next{right:16px}
+
+  @media(max-width:600px){
+    .searchbar-inner{gap:8px}
+    .filter-group select,.filter-group input[type=range]{min-width:100px}
+    .grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">Escalade <span>Hunter</span></div>
+    <div class="header-meta" id="last-updated">Loading…</div>
+  </div>
+</header>
+
+<div class="searchbar">
+  <div class="searchbar-inner">
+
+    <div class="filter-group">
+      <label>Deal rating</label>
+      <select id="f-deal" onchange="applyFilters()">
+        <option value="">All ratings</option>
+        <option value="PLATINUM">Platinum</option>
+        <option value="BEST">Best</option>
+        <option value="GOOD">Good</option>
+        <option value="OKAY">Okay</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Max price</label>
+      <div class="range-row">
+        <input type="range" id="f-price" min="20000" max="65000" step="1000" value="65000" oninput="document.getElementById('price-val').textContent='$'+Number(this.value).toLocaleString();applyFilters()">
+        <span class="range-val" id="price-val">$65,000</span>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <label>Max miles</label>
+      <div class="range-row">
+        <input type="range" id="f-miles" min="0" max="60000" step="1000" value="60000" oninput="document.getElementById('miles-val').textContent=Number(this.value).toLocaleString()+'mi';applyFilters()">
+        <span class="range-val" id="miles-val">60,000mi</span>
+      </div>
+    </div>
+
+    <div class="filter-group">
+      <label>Radius</label>
+      <select id="f-radius" onchange="applyFilters()">
+        <option value="">Any distance</option>
+        <option value="25">Within 25 mi</option>
+        <option value="50">Within 50 mi</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label>Super Cruise</label>
+      <select id="f-sc" onchange="applyFilters()">
+        <option value="">Any</option>
+        <option value="confirmed">Confirmed only</option>
+      </select>
+    </div>
+
+    <div class="sort-group">
+      <label>Sort by</label>
+      <select id="f-sort" onchange="applyFilters()">
+        <option value="newest">Newest found</option>
+        <option value="price-asc">Price: low to high</option>
+        <option value="price-desc">Price: high to low</option>
+        <option value="miles-asc">Mileage: low to high</option>
+        <option value="deal">Best deal first</option>
+      </select>
+    </div>
+
+    <div class="results-count" id="results-count"></div>
+  </div>
+</div>
+
+<main class="main">
+  <div id="grid" class="grid">
+    <div class="loading">Loading listings…</div>
+  </div>
+</main>
+
+<div class="lightbox" id="lightbox" onclick="if(event.target===this)closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">&#x2715;</button>
+  <button class="lightbox-nav lightbox-prev" onclick="lbNav(-1)">&#8249;</button>
+  <img id="lb-img" src="" alt="">
+  <button class="lightbox-nav lightbox-next" onclick="lbNav(1)">&#8250;</button>
+</div>
+
+<script>
+let ALL = [];
+let lbPhotos = [], lbIdx = 0;
+
+const DEAL_ORDER = {'PLATINUM':0,'BEST':1,'GOOD':2,'OKAY':3,'ABOVE':4};
+
+function dealColor(label){
+  const u = label.toUpperCase();
+  if(u.includes('PLATINUM')) return '#7B2D8B';
+  if(u.includes('BEST'))     return '#00AA44';
+  if(u.includes('GOOD'))     return '#3399FF';
+  if(u.includes('OKAY'))     return '#FFA500';
+  return '#FF3333';
+}
+function dealKey(label){
+  const u = label.toUpperCase();
+  if(u.includes('PLATINUM')) return 'PLATINUM';
+  if(u.includes('BEST'))     return 'BEST';
+  if(u.includes('GOOD'))     return 'GOOD';
+  if(u.includes('OKAY'))     return 'OKAY';
+  return 'ABOVE';
+}
+
+function fmt$( n){ return n ? '$'+Math.round(n).toLocaleString() : 'N/A'; }
+function fmtMi(n){ return n ? Math.round(n).toLocaleString()+' mi' : 'N/A'; }
+function fmtPct(n){ return n != null ? (n >= 0 ? '-'+Math.abs(n).toFixed(1)+'%' : '+'+Math.abs(n).toFixed(1)+'%') : ''; }
+
+function pill(text, type){
+  return `<span class="pill pill-${type}">${text}</span>`;
+}
+
+function renderCard(l, idx){
+  const photos  = l.photos || [];
+  const hasPhotos = photos.length > 0;
+  const photoSrc  = hasPhotos ? photos[0] : '';
+  const color     = l.deal_color || dealColor(l.deal_label || '');
+  const dkey      = dealKey(l.deal_label || '');
+  const savings   = l.savings_pct;
+  const isNew     = l.first_seen && (Date.now() - new Date(l.first_seen).getTime() < 86400000*2);
+
+  const photoHtml = hasPhotos
+    ? `<img src="${photos[0]}" alt="${l.year} ${l.model}" loading="lazy" onclick="openLightbox(${idx},0)">`
+    : `<div class="photo-placeholder"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="8.5" cy="11.5" r="1.5"/><polyline points="21 15 16 10 5 19"/></svg>No photos available</div>`;
+
+  const navHtml = photos.length > 1
+    ? `<button class="photo-nav photo-prev" onclick="cardNav(event,${idx},-1)">&#8249;</button>
+       <button class="photo-nav photo-next" onclick="cardNav(event,${idx},1)">&#8250;</button>
+       <div class="photo-count" id="pc-${idx}">1 / ${photos.length}</div>`
+    : '';
+
+  const savingsHtml = savings != null
+    ? (savings >= 0
+        ? `<span class="savings">${fmtPct(savings)} vs market</span>`
+        : `<span class="above-market">+${Math.abs(savings).toFixed(1)}% above market</span>`)
+    : '';
+
+  const scPill  = l.super_cruise
+    ? pill('Super Cruise ✓', 'confirmed')
+    : pill('Super Cruise – unconfirmed', 'warn');
+  const rsePill = l.rear_entertainment
+    ? pill('Rear Entertainment ✓', 'confirmed')
+    : pill('Rear Displays – unconfirmed', 'warn');
+  const drPill  = l.drivetrain ? pill(l.drivetrain, 'info') : '';
+  const cpoPill = l.cpo ? pill('CPO', 'confirmed') : '';
+
+  const vdp = l.vdp_url || l.dealer_website || '#';
+  const hasVdp = vdp && vdp !== '#';
+
+  const detailPairs = [
+    ['VIN',       l.vin],
+    ['Year',      l.year],
+    ['Mileage',   fmtMi(l.miles)],
+    ['Price',     fmt$(l.price)],
+    ['Market',    fmt$(l.market_median)],
+    ['Exterior',  l.exterior_color],
+    ['Interior',  l.interior_color],
+    ['Drivetrain',l.drivetrain],
+    ['Engine',    l.engine],
+    ['Fuel',      l.fuel_type],
+    ['Transmission', l.transmission],
+    ['Dealer',    l.dealer_name],
+    ['Phone',     l.dealer_phone],
+    ['Location',  l.city && l.state ? `${l.city}, ${l.state}` : null],
+    ['Distance',  l.search_radius ? `${l.search_radius} mi radius` : null],
+    ['Found',     l.first_seen ? new Date(l.first_seen).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : null],
+  ].filter(([,v]) => v);
+
+  const detailRows = detailPairs.map(([k,v]) =>
+    `<div class="detail-row"><span class="detail-key">${k}</span><span class="detail-val">${v}</span></div>`
+  ).join('');
+
+  const desc = l.description
+    ? `<div class="description">${l.description.slice(0,600)}${l.description.length>600?'…':''}</div>`
+    : '';
+
+  return `
+<div class="card" id="card-${idx}" data-photos='${JSON.stringify(photos)}'>
+  <div class="photo-wrap" id="pw-${idx}">
+    ${photoHtml}
+    ${navHtml}
+    <div class="deal-badge" style="background:${color}">${l.deal_label || 'Okay Deal'}</div>
+    ${isNew ? '<div class="new-badge">New</div>' : ''}
+  </div>
+
+  <div class="card-body">
+    <div>
+      <div class="card-title">${l.year} ${l.make || 'Cadillac'} ${l.model || 'Escalade ESV'}</div>
+      <div class="card-trim">${l.trim || ''}</div>
+    </div>
+
+    <div class="price-row">
+      <span class="price">${fmt$(l.price)}</span>
+      ${savingsHtml}
+    </div>
+    ${l.market_median ? `<div class="market-note">Market median: ${fmt$(l.market_median)}</div>` : ''}
+
+    <div class="specs-row">
+      <div class="spec"><span class="spec-label">Miles</span><span class="spec-val">${fmtMi(l.miles)}</span></div>
+      <div class="spec"><span class="spec-label">Year</span><span class="spec-val">${l.year || '—'}</span></div>
+      <div class="spec"><span class="spec-label">Drivetrain</span><span class="spec-val">${l.drivetrain || '—'}</span></div>
+      <div class="spec"><span class="spec-label">Color</span><span class="spec-val">${l.exterior_color || '—'}</span></div>
+    </div>
+
+    <div class="feature-pills">
+      ${scPill}${rsePill}${drPill}${cpoPill}
+    </div>
+
+    <div class="location-row">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      ${l.city || ''}${l.city && l.state ? ', ' : ''}${l.state || ''}
+      ${l.dealer_name ? `&nbsp;·&nbsp;${l.dealer_name}` : ''}
+      ${l.search_radius ? `<span class="radius-tag">${l.search_radius} mi</span>` : ''}
+    </div>
+
+    <button class="expand-btn" onclick="toggleDetails(${idx})">&#9660; View full specs &amp; details</button>
+  </div>
+
+  <div class="details" id="det-${idx}">
+    <div class="details-grid">${detailRows}</div>
+    ${desc}
+  </div>
+
+  <div class="card-footer">
+    ${hasVdp
+      ? `<a href="${vdp}" target="_blank" rel="noopener" class="btn btn-primary">View Listing</a>`
+      : `<span class="btn btn-disabled">No link available</span>`}
+    <button class="btn btn-secondary" onclick="copyVin('${l.vin||''}',this)">Copy VIN</button>
+  </div>
+</div>`;
+}
+
+let cardPhotoIdx = {};
+
+function cardNav(e, idx, dir){
+  e.stopPropagation();
+  const card   = document.getElementById('card-'+idx);
+  const photos = JSON.parse(card.dataset.photos || '[]');
+  if(!photos.length) return;
+  cardPhotoIdx[idx] = ((cardPhotoIdx[idx] || 0) + dir + photos.length) % photos.length;
+  const i = cardPhotoIdx[idx];
+  card.querySelector('.photo-wrap img').src = photos[i];
+  const pc = document.getElementById('pc-'+idx);
+  if(pc) pc.textContent = (i+1)+' / '+photos.length;
+}
+
+function openLightbox(cardIdx, photoIdx){
+  const card   = document.getElementById('card-'+cardIdx);
+  lbPhotos     = JSON.parse(card.dataset.photos || '[]');
+  lbIdx        = cardPhotoIdx[cardIdx] || 0;
+  if(!lbPhotos.length) return;
+  document.getElementById('lb-img').src = lbPhotos[lbIdx];
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open')}
+function lbNav(dir){
+  lbIdx = (lbIdx + dir + lbPhotos.length) % lbPhotos.length;
+  document.getElementById('lb-img').src = lbPhotos[lbIdx];
+}
+
+function toggleDetails(idx){
+  const det = document.getElementById('det-'+idx);
+  const btn = document.querySelector('#card-'+idx+' .expand-btn');
+  det.classList.toggle('open');
+  btn.textContent = det.classList.contains('open')
+    ? '▲ Hide details'
+    : '▼ View full specs & details';
+}
+
+function copyVin(vin, btn){
+  if(!vin){return;}
+  navigator.clipboard.writeText(vin).then(()=>{
+    const orig = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(()=>btn.textContent=orig, 2000);
+  });
+}
+
+function applyFilters(){
+  const deal   = document.getElementById('f-deal').value;
+  const price  = +document.getElementById('f-price').value;
+  const miles  = +document.getElementById('f-miles').value;
+  const radius = document.getElementById('f-radius').value;
+  const sc     = document.getElementById('f-sc').value;
+  const sort   = document.getElementById('f-sort').value;
+
+  let list = ALL.filter(l => {
+    if(deal && !dealKey(l.deal_label||'').startsWith(deal)) return false;
+    if(l.price > price) return false;
+    if(l.miles > miles) return false;
+    if(radius && l.search_radius > +radius) return false;
+    if(sc === 'confirmed' && !l.super_cruise) return false;
+    return true;
+  });
+
+  list = list.slice().sort((a,b)=>{
+    if(sort==='price-asc')  return a.price - b.price;
+    if(sort==='price-desc') return b.price - a.price;
+    if(sort==='miles-asc')  return a.miles - b.miles;
+    if(sort==='deal')       return (DEAL_ORDER[dealKey(a.deal_label||'')] || 4) - (DEAL_ORDER[dealKey(b.deal_label||'')] || 4);
+    return new Date(b.first_seen||0) - new Date(a.first_seen||0);
+  });
+
+  document.getElementById('results-count').textContent = list.length + ' listing' + (list.length!==1?'s':'') + ' found';
+
+  const grid = document.getElementById('grid');
+  if(!list.length){
+    grid.innerHTML = '<div class="empty"><h2>No listings match your filters</h2><p>Try adjusting the filters above, or check back after the next search run.</p></div>';
+    return;
+  }
+
+  cardPhotoIdx = {};
+  grid.innerHTML = list.map((l,i)=>{
+    const origIdx = ALL.indexOf(l);
+    return renderCard(l, origIdx);
+  }).join('');
+}
+
+async function loadData(){
+  try {
+    const r = await fetch('listings.json?_='+Date.now());
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    ALL = await r.json();
+    if(!ALL.length){
+      document.getElementById('grid').innerHTML = '<div class="empty"><h2>No listings yet</h2><p>The bot hasn\'t run yet or hasn\'t found any matches. Try triggering a manual run from GitHub Actions.</p></div>';
+      document.getElementById('last-updated').textContent = 'No data yet';
+      return;
+    }
+    const latest = ALL.reduce((a,b)=> (a.first_seen||'') > (b.first_seen||'') ? a : b);
+    if(latest.first_seen){
+      const d = new Date(latest.first_seen);
+      document.getElementById('last-updated').textContent = 'Last updated ' + d.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'});
+    }
+    applyFilters();
+  } catch(e){
+    document.getElementById('grid').innerHTML = '<div class="empty"><h2>Could not load listings</h2><p>listings.json not found or is empty. Run the bot at least once from GitHub Actions.</p></div>';
+    document.getElementById('last-updated').textContent = 'Error loading data';
+    console.error(e);
+  }
+}
+
+document.addEventListener('keydown', e=>{if(e.key==='Escape') closeLightbox()});
+loadData();
+</script>
+</body>
+</html>
