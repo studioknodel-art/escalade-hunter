@@ -178,9 +178,28 @@ def passes_drivetrain_filter(listing: dict) -> bool:
     dr = get_drivetrain(listing).upper()
     return any(d in dr for d in CRITERIA["drivetrain"])
 
+def passes_hard_specs(listing: dict) -> bool:
+    """Re-verify year/price/miles ourselves — MarketCheck's query params are
+    not always strictly enforced, so don't trust them alone."""
+    year  = get_year(listing) or 0
+    price = listing.get("price") or 0
+    miles = listing.get("miles")
+    if year < CRITERIA["year_min"]:
+        return False
+    if price <= 0 or price > CRITERIA["price_max"]:
+        return False
+    if miles is not None and miles > CRITERIA["miles_max"]:
+        return False
+    # Model must actually be an ESV (not a standard Escalade)
+    if "esv" not in get_model(listing).lower():
+        return False
+    return True
+
 def filter_listings(listings: list[dict]) -> list[dict]:
     passed = []
     for l in listings:
+        if not passes_hard_specs(l):
+            continue
         if not passes_trim_filter(l):
             continue
         if not passes_drivetrain_filter(l):
