@@ -9,16 +9,23 @@ Automated bot that searches for a **Cadillac Escalade ESV** matching specific cr
 | Field | Value |
 |---|---|
 | Vehicle | Cadillac Escalade ESV |
-| Year | 2023 or newer |
-| Trim | Sport Platinum (preferred) or Premium Platinum |
-| Price | $65,000 or less |
-| Mileage | 60,000 miles or less |
+| Year | 2022 or newer |
+| Trim | Sport Platinum (preferred) or Premium Luxury Platinum |
+| Price (budget) | $65,000 or less |
+| Price (near-miss band) | up to $75,000 — surfaced but flagged "over budget" |
+| Mileage | 75,000 miles or less (55k+ is the price-drop sweet spot) |
 | Drivetrain | 4WD or AWD |
 | Required Features | Super Cruise, Rear Seat Entertainment |
 | Title | Clean only |
-| Primary Search Radius | 25 miles from 75032 |
-| Fallback Radius | 50 miles if no results at 25 miles |
+| Search Radius | up to 100 miles from 75032 (distance shown per car) |
 | Check Frequency | Every 6 hours |
+
+### Near-miss band
+A car that meets every requirement except price — sitting between $65,000 and
+$75,000 — is still surfaced and sent to Discord, but clearly labeled
+`🔶 NEAR MISS (+$X over budget)` so it's never confused with an in-budget deal.
+This way a vehicle that's just outside the budget isn't missed. Use the
+"In budget only" / "Near miss" filter on the website to separate them.
 
 ## Deal Rating Scale
 

@@ -153,27 +153,29 @@
     <div class="filter-group">
       <label>Deal rating</label>
       <select id="f-deal" onchange="applyFilters()">
-        <option value="">All ratings</option>
+        <option value="">All</option>
+        <option value="INBUDGET">In budget only</option>
         <option value="PLATINUM">Platinum</option>
         <option value="BEST">Best</option>
         <option value="GOOD">Good</option>
         <option value="OKAY">Okay</option>
+        <option value="NEARMISS">Near miss (over budget)</option>
       </select>
     </div>
 
     <div class="filter-group">
       <label>Max price</label>
       <div class="range-row">
-        <input type="range" id="f-price" min="20000" max="65000" step="1000" value="65000" oninput="document.getElementById('price-val').textContent='$'+Number(this.value).toLocaleString();applyFilters()">
-        <span class="range-val" id="price-val">$65,000</span>
+        <input type="range" id="f-price" min="20000" max="75000" step="1000" value="75000" oninput="document.getElementById('price-val').textContent='$'+Number(this.value).toLocaleString();applyFilters()">
+        <span class="range-val" id="price-val">$75,000</span>
       </div>
     </div>
 
     <div class="filter-group">
       <label>Max miles</label>
       <div class="range-row">
-        <input type="range" id="f-miles" min="0" max="60000" step="1000" value="60000" oninput="document.getElementById('miles-val').textContent=Number(this.value).toLocaleString()+'mi';applyFilters()">
-        <span class="range-val" id="miles-val">60,000mi</span>
+        <input type="range" id="f-miles" min="0" max="75000" step="1000" value="75000" oninput="document.getElementById('miles-val').textContent=Number(this.value).toLocaleString()+'mi';applyFilters()">
+        <span class="range-val" id="miles-val">75,000mi</span>
       </div>
     </div>
 
@@ -183,6 +185,7 @@
         <option value="">Any distance</option>
         <option value="25">Within 25 mi</option>
         <option value="50">Within 50 mi</option>
+        <option value="100">Within 100 mi</option>
       </select>
     </div>
 
@@ -230,6 +233,7 @@ const DEAL_ORDER = {'PLATINUM':0,'BEST':1,'GOOD':2,'OKAY':3,'ABOVE':4};
 
 function dealColor(label){
   const u = label.toUpperCase();
+  if(u.includes('NEAR MISS')) return '#E2724B';
   if(u.includes('PLATINUM')) return '#7B2D8B';
   if(u.includes('BEST'))     return '#00AA44';
   if(u.includes('GOOD'))     return '#3399FF';
@@ -238,6 +242,7 @@ function dealColor(label){
 }
 function dealKey(label){
   const u = label.toUpperCase();
+  if(u.includes('NEAR MISS')) return 'NEARMISS';
   if(u.includes('PLATINUM')) return 'PLATINUM';
   if(u.includes('BEST'))     return 'BEST';
   if(u.includes('GOOD'))     return 'GOOD';
@@ -272,11 +277,13 @@ function renderCard(l, idx){
        <div class="photo-count" id="pc-${idx}">1 / ${photos.length}</div>`
     : '';
 
-  const savingsHtml = savings != null
-    ? (savings >= 0
-        ? `<span class="savings">${fmtPct(savings)} vs market</span>`
-        : `<span class="above-market">+${Math.abs(savings).toFixed(1)}% above market</span>`)
-    : '';
+  const savingsHtml = l.over_budget
+    ? `<span class="above-market">$${Math.round(l.over_budget_amt).toLocaleString()} over budget</span>`
+    : (savings != null
+        ? (savings >= 0
+            ? `<span class="savings">${fmtPct(savings)} vs market</span>`
+            : `<span class="above-market">+${Math.abs(savings).toFixed(1)}% above market</span>`)
+        : '');
 
   const scPill  = l.super_cruise
     ? pill('Super Cruise ✓', 'confirmed')
@@ -431,7 +438,10 @@ function applyFilters(){
   const sort   = document.getElementById('f-sort').value;
 
   let list = ALL.filter(l => {
-    if(deal && !dealKey(l.deal_label||'').startsWith(deal)) return false;
+    if(deal === 'INBUDGET'  && l.over_budget) return false;
+    else if(deal === 'NEARMISS' && !l.over_budget) return false;
+    else if(deal && deal !== 'INBUDGET' && deal !== 'NEARMISS'
+            && !dealKey(l.deal_label||'').startsWith(deal)) return false;
     if(l.price > price) return false;
     if(l.miles > miles) return false;
     if(radius && l.search_radius > +radius) return false;

@@ -18,14 +18,14 @@ MARKETCHECK_API_KEY = os.environ["MARKETCHECK_API_KEY"]
 DISCORD_WEBHOOK_URL = os.environ["DISCORD_WEBHOOK_URL"]
 
 SEARCH_ZIP = "75032"
-RADII = [25, 50]
+RADII = [25, 50, 100]  # search nearest first, expand outward until matches found
 
 CRITERIA = {
     "make": "Cadillac",
     "model": "Escalade ESV",
-    "year_min": 2023,
+    "year_min": 2022,       # 2022+ (price sweet spot starts here)
     "price_max": 65000,
-    "miles_max": 60000,
+    "miles_max": 75000,     # raised from 60k — the 55k+ mileage band is where price drops
     "trims": ["Sport Platinum", "Premium Luxury Platinum", "Premium Platinum"],
     "drivetrain": ["4WD", "AWD"],
 }
@@ -58,7 +58,14 @@ COLOR_HEX = {
     0x3399FF: "#3399FF",
     0xFFA500: "#FFA500",
     0xFF3333: "#FF3333",
+    0xE2724B: "#E2724B",  # near-miss / over budget (coral)
 }
+
+# Vehicles between price_max and this ceiling are surfaced as "near misses"
+# (everything else matches) so a car just outside budget is never missed.
+NEAR_MISS_PRICE_MAX = 75000
+NEAR_MISS_LABEL = "🔶 NEAR MISS"
+NEAR_MISS_COLOR = 0xE2724B
 
 # ── Field helpers (MarketCheck nests vehicle specs inside "build") ─────────────
 
@@ -226,13 +233,18 @@ def passes_drivetrain_filter(listing: dict) -> bool:
 
 def passes_hard_specs(listing: dict) -> bool:
     """Re-verify year/price/miles ourselves — MarketCheck's query params are
-    not always strictly enforced, so don't trust them alone."""
+    not always strictly enforced, so don't trust them alone.
+
+    Price is allowed up to NEAR_MISS_PRICE_MAX here; anything between the real
+    budget (CRITERIA['price_max']) and that ceiling is kept but tagged as a
+    near miss by filter_listings(), so a car just over budget isn't missed.
+    """
     year  = get_year(listing) or 0
     price = listing.get("price") or 0
     miles = listing.get("miles")
     if year < CRITERIA["year_min"]:
         return False
-    if price <= 0 or price > CRITERIA["price_max"]:
+    if price <= 0 or price > NEAR_MISS_PRICE_MAX:
         return False
     if miles is not None and miles > CRITERIA["miles_max"]:
         return False
@@ -253,6 +265,7 @@ def filter_listings(listings: list[dict]) -> list[dict]:
         if not is_clean_title(l):
             continue
         l["_features_confirmed"] = check_required_features(l)
+        l["_over_budget"] = (l.get("price") or 0) > CRITERIA["price_max"]
         passed.append(l)
     return passed
 
@@ -333,6 +346,8 @@ def build_web_record(listing: dict, deal_text: str, deal_color_hex: str, market_
         "rear_entertainment": features.get("rear_entertainment", False),
         "title_confirmed":  has_clean_title_confirmed(listing),
         "preferred_trim":   is_preferred_trim(listing),
+        "over_budget":      bool(listing.get("_over_budget")),
+        "over_budget_amt":  max(0, round(price - CRITERIA["price_max"])) if listing.get("_over_budget") else 0,
         "deal_label":       deal_text,
         "deal_color":       deal_color_hex,
         "market_median":    market_median,
@@ -350,48 +365,54 @@ def main() -> None:
     new_count    = 0
     market_cache: dict[int, float] = {}
 
-    for radius in RADII:
-        print(f"[{datetime.utcnow().isoformat()}] Searching {radius}mi radius from {SEARCH_ZIP}...")
-        raw = fetch_listings(radius)
-        print(f"  → {len(raw)} raw listings returned")
+    max_radius = max(RADII)
+    print(f"[{datetime.utcnow().isoformat()}] Searching {max_radius}mi radius from {SEARCH_ZIP}...")
+    raw = fetch_listings(max_radius)
+    print(f"  → {len(raw)} raw listings returned")
 
-        filtered = filter_listings(raw)
-        print(f"  → {len(filtered)} passed trim/drivetrain/title filters")
+    filtered = filter_listings(raw)
+    matches    = [l for l in filtered if not l.get("_over_budget")]
+    nearmisses = [l for l in filtered if l.get("_over_budget")]
+    print(f"  → {len(filtered)} pass spec filters ({len(matches)} in budget, {len(nearmisses)} near-miss)")
 
-        new_listings = [l for l in filtered if l.get("id") not in seen]
-        print(f"  → {len(new_listings)} new (not previously alerted)")
+    new_listings = [l for l in filtered if l.get("id") not in seen]
+    print(f"  → {len(new_listings)} new (not previously alerted)")
 
-        if new_listings:
-            for listing in new_listings:
-                lid  = listing.get("id")
-                year = get_year(listing) or 2023
+    for listing in new_listings:
+        lid  = listing.get("id")
+        year = get_year(listing) or 2023
 
-                if year not in market_cache:
-                    market_cache[year] = fetch_market_stats(year)
-                    time.sleep(0.5)
+        if year not in market_cache:
+            market_cache[year] = fetch_market_stats(year)
+            time.sleep(0.5)
 
-                median    = market_cache[year]
-                price     = float(listing.get("price") or 0)
-                label, color_int = deal_label(price, median)
-                color_hex = COLOR_HEX.get(color_int, "#FFA500")
+        median = market_cache[year]
+        price  = float(listing.get("price") or 0)
 
-                print(f"  📬 Alerting: {year} {get_trim(listing)} — ${price:,.0f} — {label}")
-                try:
-                    send_discord(listing, label, color_int, median, radius)
-                    seen.add(lid)
-                    new_count += 1
-                    time.sleep(1)
-                except Exception as e:
-                    print(f"  ⚠️  Discord error for {lid}: {e}", file=sys.stderr)
+        if listing.get("_over_budget"):
+            over = price - CRITERIA["price_max"]
+            label     = f"{NEAR_MISS_LABEL} (+${over:,.0f} over budget)"
+            color_int = NEAR_MISS_COLOR
+        else:
+            label, color_int = deal_label(price, median)
+        color_hex = COLOR_HEX.get(color_int, "#FFA500")
 
-                if lid not in web_ids:
-                    web_listings.append(build_web_record(listing, label, color_hex, median, radius))
-                    web_ids.add(lid)
+        # Distance band: smallest configured radius that still contains the car
+        dist = listing.get("dist") or max_radius
+        band = next((r for r in sorted(RADII) if dist <= r), max_radius)
 
-            break  # found results at this radius, don't expand
+        print(f"  📬 Alerting: {year} {get_trim(listing)} — ${price:,.0f} — {label} — {round(dist)}mi")
+        try:
+            send_discord(listing, label, color_int, median, band)
+            seen.add(lid)
+            new_count += 1
+            time.sleep(1)
+        except Exception as e:
+            print(f"  ⚠️  Discord error for {lid}: {e}", file=sys.stderr)
 
-        if radius == RADII[0]:
-            print(f"  No new listings at {radius}mi — expanding to {RADII[1]}mi...")
+        if lid not in web_ids:
+            web_listings.append(build_web_record(listing, label, color_hex, median, band))
+            web_ids.add(lid)
 
     web_listings.sort(key=lambda r: r.get("first_seen", ""), reverse=True)
     save_seen(seen)
