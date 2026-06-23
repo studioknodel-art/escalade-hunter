@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   search:
@@ -35,3 +37,22 @@ jobs:
           git add data/seen_listings.json docs/listings.json
           git diff --staged --quiet || git commit -m "chore: update listings"
           git push
+
+  # Deploy the site in the SAME run. Commits made with GITHUB_TOKEN do not
+  # trigger the standalone deploy-pages workflow, so we publish here directly.
+  deploy:
+    needs: search
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main   # pick up the listings the search job just committed
+      - uses: actions/configure-pages@v4
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+      - id: deployment
+        uses: actions/deploy-pages@v4
