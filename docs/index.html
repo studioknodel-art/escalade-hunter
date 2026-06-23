@@ -94,9 +94,44 @@
   input[type=range]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--gold);
     border:2px solid #1a1a26;box-shadow:0 0 10px rgba(255,192,58,.8);cursor:pointer}
   .range-val{font-size:13px;color:var(--gold-bright);min-width:56px;font-weight:700;font-family:var(--font-display)}
-  .results-count{margin-left:auto;color:var(--text2);font-size:14px;white-space:nowrap;font-weight:600;
+  .results-count{color:var(--text2);font-size:14px;white-space:nowrap;font-weight:600;
     text-transform:uppercase;letter-spacing:1px}
   .results-count b{color:var(--gold);font-family:var(--font-display)}
+
+  /* ── Collapsible drawer ── */
+  .drawer{padding:0}
+  .drawer-head{
+    max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:12px;
+    padding:15px 24px;cursor:pointer;user-select:none;
+    transition:background .15s;
+  }
+  .drawer-head:hover{background:rgba(255,192,58,.04)}
+  .drawer-head:focus-visible{outline:none;box-shadow:inset 0 0 0 1px var(--gold)}
+  .drawer-title{
+    display:flex;align-items:center;gap:9px;
+    font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--gold);
+    text-transform:uppercase;letter-spacing:1.5px;text-shadow:0 0 12px rgba(255,192,58,.4);
+    white-space:nowrap;
+  }
+  .drawer-title i{width:16px;height:16px;display:inline-block;
+    background:linear-gradient(135deg,var(--gold),var(--red));border-radius:2px;
+    clip-path:polygon(0 0,70% 0,100% 30%,100% 100%,30% 100%,0 70%)}
+  .drawer-head .results-count{margin-left:auto}
+  .drawer-chevron{
+    margin-left:auto;color:var(--gold);font-size:16px;line-height:1;
+    transition:transform .3s ease;flex-shrink:0;
+  }
+  .drawer-head .results-count + .drawer-chevron{margin-left:14px}
+  .drawer.open .drawer-chevron{transform:rotate(180deg)}
+  /* grid 0fr→1fr gives smooth auto-height expand/collapse */
+  .drawer-body{display:grid;grid-template-rows:0fr;
+    transition:grid-template-rows .32s cubic-bezier(.22,.61,.36,1)}
+  .drawer.open .drawer-body{grid-template-rows:1fr}
+  .drawer-body-inner{overflow:hidden;min-height:0}
+  /* restore the gutters the bar padding used to provide */
+  .drawer .searchbar-inner{padding:2px 24px 20px}
+  .drawer .finance-inner{padding:2px 24px 0}
+  .drawer .finance-note{padding:0 24px 16px}
 
   /* ── Finance bar ── */
   .finance-bar{background:linear-gradient(180deg,rgba(20,14,8,.96),rgba(10,8,5,.96));
@@ -324,7 +359,14 @@
   </div>
 </header>
 
-<div class="searchbar">
+<div class="searchbar drawer" id="filter-drawer">
+  <div class="drawer-head" onclick="toggleDrawer('filter-drawer')" tabindex="0" role="button" aria-expanded="false" aria-controls="filter-body">
+    <span class="drawer-title"><i></i>Search &amp; Filters</span>
+    <div class="results-count" id="results-count"></div>
+    <span class="drawer-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="drawer-body" id="filter-body">
+   <div class="drawer-body-inner">
   <div class="searchbar-inner">
 
     <div class="filter-group">
@@ -385,13 +427,19 @@
       </select>
     </div>
 
-    <div class="results-count" id="results-count"></div>
+  </div>
+   </div>
   </div>
 </div>
 
-<div class="finance-bar">
+<div class="finance-bar drawer" id="finance-drawer">
+  <div class="drawer-head" onclick="toggleDrawer('finance-drawer')" tabindex="0" role="button" aria-expanded="false" aria-controls="finance-body">
+    <span class="drawer-title"><i></i>Finance calculator</span>
+    <span class="drawer-chevron" aria-hidden="true">&#9662;</span>
+  </div>
+  <div class="drawer-body" id="finance-body">
+   <div class="drawer-body-inner">
   <div class="finance-inner">
-    <div class="finance-title"><i></i>Finance calculator</div>
     <div class="fin-group">
       <label>Down payment</label>
       <div class="fin-input"><span class="fin-prefix">$</span><input type="number" id="fin-down" min="0" step="500" inputmode="numeric" oninput="onFinanceChange()"></div>
@@ -415,6 +463,8 @@
     <button class="fin-reset" onclick="resetFinance()" title="Reset to defaults">Reset</button>
   </div>
   <div class="finance-note" id="finance-note">Estimates include sales tax on price minus trade-in. Saved automatically on this device.</div>
+   </div>
+  </div>
 </div>
 
 <main class="main">
@@ -443,6 +493,42 @@
 let ALL = [];
 
 const DEAL_ORDER = {'PLATINUM':0,'BEST':1,'GOOD':2,'OKAY':3,'ABOVE':4};
+
+/* ── Collapsible drawers (filters + finance), state persisted per device ──── */
+const DRAWER_KEY = 'escaladeHunterDrawers';
+function setDrawer(id, open){
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.classList.toggle('open', open);
+  const head = el.querySelector('.drawer-head');
+  if(head) head.setAttribute('aria-expanded', open ? 'true' : 'false');
+}
+function toggleDrawer(id){
+  const el = document.getElementById(id);
+  if(!el) return;
+  const open = !el.classList.contains('open');
+  setDrawer(id, open);
+  try {
+    const st = JSON.parse(localStorage.getItem(DRAWER_KEY) || '{}');
+    st[id] = open;
+    localStorage.setItem(DRAWER_KEY, JSON.stringify(st));
+  } catch(e){}
+}
+function initDrawers(){
+  let st = {};
+  try { st = JSON.parse(localStorage.getItem(DRAWER_KEY) || '{}'); } catch(e){}
+  // default: collapsed unless the user previously opened it on this device
+  ['filter-drawer','finance-drawer'].forEach(id => setDrawer(id, st[id] === true));
+  // let the header act like a button for keyboard users
+  document.querySelectorAll('.drawer-head').forEach(head => {
+    head.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        toggleDrawer(head.closest('.drawer').id);
+      }
+    });
+  });
+}
 
 /* ── Finance calculator (persisted to localStorage) ───────────────────────── */
 const FIN_KEY = 'escaladeHunterFinance';
@@ -880,6 +966,7 @@ document.addEventListener('keydown', e=>{
   } else if(fullIsOpen() && e.key === 'ArrowRight'){ galNav(1); }
   else if(fullIsOpen() && e.key === 'ArrowLeft'){ galNav(-1); }
 });
+initDrawers();
 loadFinance();
 loadData();
 </script>
