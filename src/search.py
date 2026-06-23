@@ -353,7 +353,12 @@ def build_web_record(listing: dict, deal_text: str, deal_color_hex: str, market_
         "market_median":    market_median,
         "savings_pct":      savings_pct,
         "search_radius":    radius,
+        # Days the listing has been live on the dealer/source site (MarketCheck "dom").
+        "days_on_market":   listing.get("dom"),
+        # When OUR bot first added it to the lead list.
         "first_seen":       datetime.utcnow().isoformat(),
+        # Refreshed every run so the site can show a "last confirmed available" time.
+        "last_seen":        datetime.utcnow().isoformat(),
     }
 
 # ── Main ───────────────────────────────────────────────────────────────────────
@@ -413,6 +418,34 @@ def main() -> None:
         if lid not in web_ids:
             web_listings.append(build_web_record(listing, label, color_hex, median, band))
             web_ids.add(lid)
+
+    # ── Refresh still-listed cars and prune ones that are gone ──────────────────
+    current = {l.get("id"): l for l in filtered}
+    now = datetime.utcnow().isoformat()
+
+    # A search that returns essentially nothing is treated as an API hiccup, not
+    # proof that every car vanished — don't prune in that case.
+    search_ok = len(raw) >= 10
+
+    if search_ok:
+        # Keep last_seen / days_on_market fresh for cars still available.
+        for r in web_listings:
+            src = current.get(r["id"])
+            if src is not None:
+                r["last_seen"] = now
+                r["days_on_market"] = src.get("dom")
+
+        before = len(web_listings)
+        web_listings = [r for r in web_listings if r["id"] in current]
+        removed = before - len(web_listings)
+        if removed:
+            print(f"  🗑️  Removed {removed} listing(s) no longer available")
+
+        # seen now mirrors exactly what's currently live, so a car that
+        # disappears and later returns will alert again.
+        seen = set(current.keys())
+    else:
+        print("  ⚠️  Search returned too few results — skipping prune this run")
 
     web_listings.sort(key=lambda r: r.get("first_seen", ""), reverse=True)
     save_seen(seen)
