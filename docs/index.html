@@ -63,13 +63,32 @@
   }
   .header-meta{font-size:14px;color:var(--text2);margin-left:auto;font-weight:500;letter-spacing:.3px}
 
+  /* ── Collapsible drawers ── */
+  .drawer-toggle{display:flex;align-items:center;gap:11px;width:100%;max-width:1280px;margin:0 auto;
+    background:none;border:none;cursor:pointer;padding:14px 0;color:var(--gold);
+    font-family:var(--font-display);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;
+    text-shadow:0 0 12px rgba(255,192,58,.35)}
+  .drawer-toggle:hover{color:var(--gold-bright)}
+  .d-ico{width:18px;height:18px;flex:0 0 auto;background:linear-gradient(135deg,var(--gold),var(--red));
+    border-radius:2px;clip-path:polygon(0 0,70% 0,100% 30%,100% 100%,30% 100%,0 70%)}
+  .d-spacer{flex:1}
+  .drawer-meta{font-family:var(--font-ui);font-size:13px;color:var(--text2);font-weight:600;
+    text-transform:uppercase;letter-spacing:1px;white-space:nowrap}
+  .drawer-meta b{color:var(--gold);font-family:var(--font-display)}
+  .chev{flex:0 0 auto;transition:transform .35s cubic-bezier(.22,.61,.36,1);color:var(--gold);display:block}
+  .chev.rot{transform:rotate(-90deg)}
+  .drawer-body{display:grid;grid-template-rows:1fr;transition:grid-template-rows .38s cubic-bezier(.22,.61,.36,1)}
+  .drawer-body.collapsed{grid-template-rows:0fr}
+  .drawer-inner{overflow:hidden;min-height:0}
+
   /* ── Search bar ── */
   .searchbar{
     background:linear-gradient(180deg,rgba(18,18,28,.95),rgba(10,10,18,.95));
-    padding:18px 24px;border-bottom:1px solid var(--border);
+    padding:0 24px;border-bottom:1px solid var(--border);
     backdrop-filter:blur(6px);position:sticky;top:72px;z-index:40;
   }
-  .searchbar-inner{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .searchbar-inner{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px;align-items:center;
+    padding:4px 0 18px}
   .filter-group,.sort-group{display:flex;flex-direction:column;gap:5px}
   .filter-group label,.sort-group label{
     font-family:var(--font-display);font-size:10px;color:var(--gold);font-weight:500;
@@ -100,8 +119,9 @@
 
   /* ── Finance bar ── */
   .finance-bar{background:linear-gradient(180deg,rgba(20,14,8,.96),rgba(10,8,5,.96));
-    border-bottom:1px solid var(--border);padding:16px 24px 14px}
-  .finance-inner{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end}
+    border-bottom:1px solid var(--border);padding:0 24px}
+  .finance-inner{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end;
+    padding-top:4px}
   .finance-title{display:flex;align-items:center;gap:8px;font-family:var(--font-display);
     font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;
     text-shadow:0 0 12px rgba(255,192,58,.4);padding-bottom:8px;white-space:nowrap}
@@ -125,7 +145,7 @@
     font-family:var(--font-display);font-size:11px;font-weight:700;text-transform:uppercase;
     letter-spacing:1px;cursor:pointer;transition:.15s}
   .fin-reset:hover{background:rgba(255,36,64,.12);box-shadow:var(--glow-red)}
-  .finance-note{max-width:1280px;margin:10px auto 0;font-size:11px;color:var(--text3);letter-spacing:.3px}
+  .finance-note{max-width:1280px;margin:10px auto 0;padding-bottom:14px;font-size:11px;color:var(--text3);letter-spacing:.3px}
 
   /* Monthly payment block on cards */
   .monthly-row{display:flex;align-items:baseline;gap:8px;background:rgba(255,192,58,.07);
@@ -325,6 +345,14 @@
 </header>
 
 <div class="searchbar">
+  <button class="drawer-toggle" id="toggle-search" aria-expanded="true" onclick="toggleDrawer('search')">
+    <span class="d-ico"></span>
+    <span>Search filters</span>
+    <span class="d-spacer"></span>
+    <span class="drawer-meta" id="results-count"></span>
+    <svg class="chev" id="chev-search" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="drawer-body" id="drawer-search"><div class="drawer-inner">
   <div class="searchbar-inner">
 
     <div class="filter-group">
@@ -385,13 +413,20 @@
       </select>
     </div>
 
-    <div class="results-count" id="results-count"></div>
   </div>
+  </div></div>
 </div>
 
 <div class="finance-bar">
+  <button class="drawer-toggle" id="toggle-finance" aria-expanded="true" onclick="toggleDrawer('finance')">
+    <span class="d-ico"></span>
+    <span>Finance calculator</span>
+    <span class="d-spacer"></span>
+    <span class="drawer-meta" id="finance-summary"></span>
+    <svg class="chev" id="chev-finance" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="drawer-body" id="drawer-finance"><div class="drawer-inner">
   <div class="finance-inner">
-    <div class="finance-title"><i></i>Finance calculator</div>
     <div class="fin-group">
       <label>Down payment</label>
       <div class="fin-input"><span class="fin-prefix">$</span><input type="number" id="fin-down" min="0" step="500" inputmode="numeric" oninput="onFinanceChange()"></div>
@@ -415,6 +450,7 @@
     <button class="fin-reset" onclick="resetFinance()" title="Reset to defaults">Reset</button>
   </div>
   <div class="finance-note" id="finance-note">Estimates include sales tax on price minus trade-in. Saved automatically on this device.</div>
+  </div></div>
 </div>
 
 <main class="main">
@@ -459,6 +495,7 @@ function loadFinance(){
   document.getElementById('fin-tax').value   = FINANCE.tax;
   document.getElementById('fin-rate').value  = FINANCE.rate;
   document.getElementById('fin-term').value  = FINANCE.term;
+  updateFinanceSummary();
 }
 function readFinanceInputs(){
   const num = (id, def) => {
@@ -474,16 +511,47 @@ function readFinanceInputs(){
   };
 }
 function saveFinance(){ localStorage.setItem(FIN_KEY, JSON.stringify(FINANCE)); }
+function updateFinanceSummary(){
+  const el = document.getElementById('finance-summary');
+  if(!el) return;
+  const bits = [`${FINANCE.term}mo @ ${FINANCE.rate}% APR`];
+  if(FINANCE.down)  bits.push(`$${Math.round(FINANCE.down).toLocaleString()} down`);
+  if(FINANCE.trade) bits.push(`$${Math.round(FINANCE.trade).toLocaleString()} trade`);
+  el.textContent = bits.join(' · ');
+}
 function onFinanceChange(){
   readFinanceInputs();
   saveFinance();
+  updateFinanceSummary();
   applyFilters();   // re-render cards so every monthly payment updates live
 }
 function resetFinance(){
   FINANCE = { ...FIN_DEFAULTS };
   saveFinance();
   loadFinance();
+  updateFinanceSummary();
   applyFilters();
+}
+
+/* ── Collapsible drawers (state persisted to localStorage) ─────────────────── */
+function setDrawer(name, collapsed, save){
+  const body = document.getElementById('drawer-'+name);
+  const chev = document.getElementById('chev-'+name);
+  const toggle = document.getElementById('toggle-'+name);
+  if(!body) return;
+  body.classList.toggle('collapsed', collapsed);
+  if(chev)   chev.classList.toggle('rot', collapsed);
+  if(toggle) toggle.setAttribute('aria-expanded', String(!collapsed));
+  if(save) localStorage.setItem('ehDrawer_'+name, collapsed ? '1' : '0');
+}
+function toggleDrawer(name){
+  const body = document.getElementById('drawer-'+name);
+  setDrawer(name, !body.classList.contains('collapsed'), true);
+}
+function loadDrawers(){
+  ['search','finance'].forEach(n =>
+    setDrawer(n, localStorage.getItem('ehDrawer_'+n) === '1', false)
+  );
 }
 
 /* Monthly payment for a given vehicle price using current FINANCE settings.
@@ -881,6 +949,7 @@ document.addEventListener('keydown', e=>{
   else if(fullIsOpen() && e.key === 'ArrowLeft'){ galNav(-1); }
 });
 loadFinance();
+loadDrawers();
 loadData();
 </script>
 </body>
