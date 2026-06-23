@@ -98,6 +98,43 @@
     text-transform:uppercase;letter-spacing:1px}
   .results-count b{color:var(--gold);font-family:var(--font-display)}
 
+  /* ── Finance bar ── */
+  .finance-bar{background:linear-gradient(180deg,rgba(20,14,8,.96),rgba(10,8,5,.96));
+    border-bottom:1px solid var(--border);padding:16px 24px 14px}
+  .finance-inner{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-end}
+  .finance-title{display:flex;align-items:center;gap:8px;font-family:var(--font-display);
+    font-size:13px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:1.5px;
+    text-shadow:0 0 12px rgba(255,192,58,.4);padding-bottom:8px;white-space:nowrap}
+  .finance-title i{width:18px;height:18px;display:inline-block;
+    background:linear-gradient(135deg,var(--gold),var(--red));border-radius:2px;
+    clip-path:polygon(0 0,70% 0,100% 30%,100% 100%,30% 100%,0 70%)}
+  .fin-group{display:flex;flex-direction:column;gap:5px}
+  .fin-group label{font-family:var(--font-display);font-size:9px;color:var(--text2);
+    font-weight:500;text-transform:uppercase;letter-spacing:1.2px}
+  .fin-input{display:flex;align-items:center;background:rgba(255,192,58,.06);
+    border:1px solid var(--border-hot);border-radius:var(--radius);height:38px;
+    padding:0 10px;transition:box-shadow .15s,border-color .15s;width:130px}
+  .fin-input:focus-within{border-color:var(--gold);box-shadow:var(--glow-gold)}
+  .fin-prefix,.fin-suffix{color:var(--gold);font-weight:700;font-family:var(--font-display);font-size:13px}
+  .fin-prefix{margin-right:4px}.fin-suffix{margin-left:4px}
+  .fin-input input{background:none;border:none;outline:none;color:var(--text);
+    font-family:var(--font-ui);font-size:15px;font-weight:700;width:100%;min-width:0;-moz-appearance:textfield}
+  .fin-input input::-webkit-outer-spin-button,.fin-input input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  .fin-reset{align-self:flex-end;height:38px;padding:0 16px;background:transparent;
+    border:1px solid rgba(255,36,64,.35);color:var(--red-bright);border-radius:var(--radius);
+    font-family:var(--font-display);font-size:11px;font-weight:700;text-transform:uppercase;
+    letter-spacing:1px;cursor:pointer;transition:.15s}
+  .fin-reset:hover{background:rgba(255,36,64,.12);box-shadow:var(--glow-red)}
+  .finance-note{max-width:1280px;margin:10px auto 0;font-size:11px;color:var(--text3);letter-spacing:.3px}
+
+  /* Monthly payment block on cards */
+  .monthly-row{display:flex;align-items:baseline;gap:8px;background:rgba(255,192,58,.07);
+    border:1px solid var(--border-hot);border-radius:var(--radius);padding:7px 11px}
+  .monthly-amt{font-family:var(--font-display);font-size:19px;font-weight:900;color:var(--gold-bright);
+    text-shadow:0 0 12px rgba(255,192,58,.4)}
+  .monthly-lbl{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:.6px;font-weight:600}
+  .monthly-na{font-size:12px;color:var(--text3);font-style:italic}
+
   /* ── Main layout ── */
   .main{max-width:1280px;margin:0 auto;padding:28px 24px 60px}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:22px}
@@ -315,6 +352,34 @@
   </div>
 </div>
 
+<div class="finance-bar">
+  <div class="finance-inner">
+    <div class="finance-title"><i></i>Finance calculator</div>
+    <div class="fin-group">
+      <label>Down payment</label>
+      <div class="fin-input"><span class="fin-prefix">$</span><input type="number" id="fin-down" min="0" step="500" inputmode="numeric" oninput="onFinanceChange()"></div>
+    </div>
+    <div class="fin-group">
+      <label>Trade-in value</label>
+      <div class="fin-input"><span class="fin-prefix">$</span><input type="number" id="fin-trade" min="0" step="500" inputmode="numeric" oninput="onFinanceChange()"></div>
+    </div>
+    <div class="fin-group">
+      <label>Sales tax</label>
+      <div class="fin-input"><input type="number" id="fin-tax" min="0" max="15" step="0.01" inputmode="decimal" oninput="onFinanceChange()"><span class="fin-suffix">%</span></div>
+    </div>
+    <div class="fin-group">
+      <label>Interest rate (APR)</label>
+      <div class="fin-input"><input type="number" id="fin-rate" min="0" max="30" step="0.1" inputmode="decimal" oninput="onFinanceChange()"><span class="fin-suffix">%</span></div>
+    </div>
+    <div class="fin-group">
+      <label>Term</label>
+      <div class="fin-input"><input type="number" id="fin-term" min="12" max="96" step="12" inputmode="numeric" oninput="onFinanceChange()"><span class="fin-suffix">mo</span></div>
+    </div>
+    <button class="fin-reset" onclick="resetFinance()" title="Reset to defaults">Reset</button>
+  </div>
+  <div class="finance-note" id="finance-note">Estimates include sales tax on price minus trade-in. Saved automatically on this device.</div>
+</div>
+
 <main class="main">
   <div id="grid" class="grid">
     <div class="loading">Loading listings…</div>
@@ -333,6 +398,62 @@ let ALL = [];
 let lbPhotos = [], lbIdx = 0;
 
 const DEAL_ORDER = {'PLATINUM':0,'BEST':1,'GOOD':2,'OKAY':3,'ABOVE':4};
+
+/* ── Finance calculator (persisted to localStorage) ───────────────────────── */
+const FIN_KEY = 'escaladeHunterFinance';
+const FIN_DEFAULTS = { down:0, trade:0, tax:6.25, rate:7.5, term:72 };
+let FINANCE = { ...FIN_DEFAULTS };
+
+function loadFinance(){
+  try {
+    const saved = JSON.parse(localStorage.getItem(FIN_KEY) || '{}');
+    FINANCE = { ...FIN_DEFAULTS, ...saved };
+  } catch(e){ FINANCE = { ...FIN_DEFAULTS }; }
+  document.getElementById('fin-down').value  = FINANCE.down;
+  document.getElementById('fin-trade').value = FINANCE.trade;
+  document.getElementById('fin-tax').value   = FINANCE.tax;
+  document.getElementById('fin-rate').value  = FINANCE.rate;
+  document.getElementById('fin-term').value  = FINANCE.term;
+}
+function readFinanceInputs(){
+  const num = (id, def) => {
+    const v = parseFloat(document.getElementById(id).value);
+    return isFinite(v) && v >= 0 ? v : def;
+  };
+  FINANCE = {
+    down:  num('fin-down',  0),
+    trade: num('fin-trade', 0),
+    tax:   num('fin-tax',   FIN_DEFAULTS.tax),
+    rate:  num('fin-rate',  FIN_DEFAULTS.rate),
+    term:  Math.max(1, num('fin-term', FIN_DEFAULTS.term)),
+  };
+}
+function saveFinance(){ localStorage.setItem(FIN_KEY, JSON.stringify(FINANCE)); }
+function onFinanceChange(){
+  readFinanceInputs();
+  saveFinance();
+  applyFilters();   // re-render cards so every monthly payment updates live
+}
+function resetFinance(){
+  FINANCE = { ...FIN_DEFAULTS };
+  saveFinance();
+  loadFinance();
+  applyFilters();
+}
+
+/* Monthly payment for a given vehicle price using current FINANCE settings.
+   Texas-style: trade-in reduces the taxable amount. Returns 0 if nothing to finance. */
+function monthlyPayment(price){
+  if(!price || price <= 0) return null;
+  const taxable   = Math.max(0, price - FINANCE.trade);
+  const tax       = taxable * (FINANCE.tax / 100);
+  const principal = price + tax - FINANCE.down - FINANCE.trade;
+  if(principal <= 0) return 0;                 // paid off by down + trade
+  const r = (FINANCE.rate / 100) / 12;
+  const n = FINANCE.term;
+  if(r === 0) return principal / n;
+  return principal * r / (1 - Math.pow(1 + r, -n));
+}
 
 function dealColor(label){
   const u = label.toUpperCase();
@@ -454,6 +575,14 @@ function renderCard(l, idx){
     ? `<div class="description">${l.description.slice(0,600)}${l.description.length>600?'…':''}</div>`
     : '';
 
+  const mPay = monthlyPayment(l.price);
+  const monthlyHtml = mPay == null
+    ? ''
+    : `<div class="monthly-row">
+         <span class="monthly-amt">${mPay <= 0 ? '$0' : '$' + Math.round(mPay).toLocaleString()}</span>
+         <span class="monthly-lbl">/mo est. · ${FINANCE.term}mo @ ${FINANCE.rate}% APR</span>
+       </div>`;
+
   return `
 <div class="card" id="card-${idx}" data-photos='${JSON.stringify(photos)}'>
   <div class="photo-wrap" id="pw-${idx}">
@@ -474,6 +603,8 @@ function renderCard(l, idx){
       ${savingsHtml}
     </div>
     ${l.market_median ? `<div class="market-note">Market median: ${fmt$(l.market_median)}</div>` : ''}
+
+    ${monthlyHtml}
 
     <div class="specs-row">
       <div class="spec"><span class="spec-label">Miles</span><span class="spec-val">${fmtMi(l.miles)}</span></div>
@@ -628,6 +759,7 @@ async function loadData(){
 }
 
 document.addEventListener('keydown', e=>{if(e.key==='Escape') closeLightbox()});
+loadFinance();
 loadData();
 </script>
 </body>
