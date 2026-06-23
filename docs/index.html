@@ -290,7 +290,7 @@ function renderCard(l, idx){
   const color     = l.deal_color || dealColor(l.deal_label || '');
   const dkey      = dealKey(l.deal_label || '');
   const savings   = l.savings_pct;
-  const isNew     = l.first_seen && (Date.now() - new Date(l.first_seen).getTime() < 86400000*2);
+  const isNew     = l.first_seen && (Date.now() - new Date(l.first_seen).getTime() < 86400000);
 
   const photoHtml = hasPhotos
     ? `<img src="${photos[0]}" alt="${l.year} ${l.model}" loading="lazy" onclick="openLightbox(${idx},0)">`
