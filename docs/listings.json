@@ -68,7 +68,7 @@
     "search_radius": 50,
     "days_on_market": 17,
     "first_seen": "2026-06-25T09:37:08.690038",
-    "last_seen": "2026-06-25T09:37:08.690109"
+    "last_seen": "2026-06-25T14:48:27.692614"
   },
   {
     "id": "1GYS4MKL8PR350472-779abcd3-7b69",
@@ -107,7 +107,7 @@
     "savings_pct": null,
     "search_radius": 50,
     "first_seen": "2026-06-22T12:20:54.738430",
-    "last_seen": "2026-06-25T09:37:08.690109",
+    "last_seen": "2026-06-25T14:48:27.692614",
     "days_on_market": 95
   },
   {
@@ -176,7 +176,7 @@
     "savings_pct": null,
     "search_radius": 50,
     "first_seen": "2026-06-21T21:51:09.142487",
-    "last_seen": "2026-06-25T09:37:08.690109",
+    "last_seen": "2026-06-25T14:48:27.692614",
     "days_on_market": 39
   }
 ]
