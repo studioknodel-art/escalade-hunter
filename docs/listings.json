@@ -1,13 +1,13 @@
 [
   {
-    "id": "1GYS4RKL1PR300039-da90a4c1-6a07",
+    "id": "1GYS4RKL1PR300039-2eefbff3-f3de",
     "vin": "1GYS4RKL1PR300039",
     "year": 2023,
     "make": "Cadillac",
     "model": "Escalade ESV",
     "trim": "Sport Platinum",
     "price": 75000.0,
-    "miles": 62015,
+    "miles": 62058,
     "exterior_color": "Black Raven",
     "interior_color": "Jet Black",
     "drivetrain": "4WD",
@@ -21,22 +21,22 @@
     "dealer_website": "spford.com",
     "vdp_url": "https://www.spford.com/vehicle/1GYS4RKL1PR300039/Used--2023--Cadillac--Escalade_ESV--Sport_Utility_SUV_-slash-_Crossover----Carrollton--TX/",
     "photos": [
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/249641709?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/249641710?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/249641711?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/243574291?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/243574292?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/243574293?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/243574294?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/243574295?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/243574296?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/243574297?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/243574298?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/243574299?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/243574300?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/243574301?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/243574302?scale=1280/-1/100",
-      "https://media-cdn-a5-jazel-tango.jazel-qa.com/media/243574303?scale=1280/-1/100"
+      "https://media-cdn-tango.jazelc.com/media/249641709?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/249641710?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/249641711?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/243574291?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/243574292?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/243574293?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/243574294?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/243574295?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/243574296?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/243574297?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/243574298?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/243574299?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/243574300?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/243574301?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/243574302?scale=1280/-1/100",
+      "https://media-cdn-tango.jazelc.com/media/243574303?scale=1280/-1/100"
     ],
     "description": null,
     "super_cruise": false,
@@ -50,9 +50,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 29,
-    "first_seen": "2026-07-02T09:27:25.724482",
-    "last_seen": "2026-07-04T08:47:44.985559"
+    "days_on_market": 30,
+    "first_seen": "2026-07-04T13:51:29.539885",
+    "last_seen": "2026-07-04T13:51:29.539930"
   },
   {
     "id": "1GYS4MKL1PR126640-cfb3d9ef-8837",
@@ -121,9 +121,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 111,
+    "days_on_market": 112,
     "first_seen": "2026-07-02T09:27:24.568345",
-    "last_seen": "2026-07-04T08:47:44.985559"
+    "last_seen": "2026-07-04T13:51:29.539930"
   },
   {
     "id": "1GYS4RKL5PR397634-084ae5bd-1fea",
@@ -190,8 +190,8 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 47,
+    "days_on_market": 48,
     "first_seen": "2026-06-30T09:55:31.333657",
-    "last_seen": "2026-07-04T08:47:44.985559"
+    "last_seen": "2026-07-04T13:51:29.539930"
   }
 ]
