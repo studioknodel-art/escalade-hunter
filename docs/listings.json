@@ -1,5 +1,63 @@
 [
   {
+    "id": "1GYS4MKL2PR269547-980f367a-c342",
+    "vin": "1GYS4MKL2PR269547",
+    "year": 2023,
+    "make": "Cadillac",
+    "model": "Escalade ESV",
+    "trim": "Premium Luxury Platinum",
+    "price": 67786.0,
+    "miles": 74417,
+    "exterior_color": "Crystal White",
+    "interior_color": "Black",
+    "drivetrain": "4WD",
+    "transmission": "Automatic",
+    "engine": "6.2L V8",
+    "fuel_type": "Premium Unleaded",
+    "city": "Kilgore",
+    "state": "TX",
+    "dealer_name": "Orr Of Longview",
+    "dealer_phone": "903-704-0780",
+    "dealer_website": "orrlongview.com",
+    "vdp_url": "https://www.orrlongview.com/used/Cadillac/2023-Cadillac-Escalade-ESV-22ee1c80ac185abe565e24b0f81da695.htm",
+    "photos": [
+      "https://pictures.dealer.com/o/orrpreownedlongview/0389/5fb292270325bf4ffc8d05f31d67ee65x.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/0354/a7980a5adc2f51817bdc90b78ec25f91x.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/0387/0a95641330c8a82d72021890c80199f8x.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/0489/1c879d68b10f1555bad5396570ee5e5fx.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/1521/0b59ee92a8f9ca47c5599fd22e0caecdx.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/0721/e8ca55b4b154bd1ebeb6d1f352431f50x.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/1994/dbc6cdb270cf06e0228f03a6002473a4x.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/1375/04922eba9cd5aef0e785a7be9115e713x.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/0093/d785b32f2b6b19774de28f60e7daa527x.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/1044/21fe25e91fb590a4ea38ed565efb9aadx.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/0388/096458dfa1e0ec220b9d85f4c500d77ex.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/0079/f5695d4adf68f4dfaf061d32b1181bb8x.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/0490/84d872a6d5ab6a183be9e91b8bec79f5x.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/1333/8b5f9371d396e1fb73134567b411d2c1x.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/0969/ec14593ead9964940c3890c733741ab8x.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/0349/125202082f2502c49b93c33d59775d59x.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/1489/a85b96a2a4a949b80cd4870f84735aadx.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/1624/2b6c4da95d494de70d120c34f9e583c2x.jpg",
+      "https://pictures.dealer.com/o/orrpreownedlongview/1306/d53dd5d30aaffe14ccc6cda4acec84a5x.jpg"
+    ],
+    "description": null,
+    "super_cruise": false,
+    "rear_entertainment": false,
+    "title_confirmed": false,
+    "preferred_trim": false,
+    "over_budget": true,
+    "over_budget_amt": 2786,
+    "deal_label": "\ud83d\udd36 NEAR MISS (+$2,786 over budget)",
+    "deal_color": "#E2724B",
+    "market_median": 0.0,
+    "savings_pct": null,
+    "search_radius": 100,
+    "days_on_market": 21,
+    "first_seen": "2026-07-14T08:21:29.326337",
+    "last_seen": "2026-07-14T08:21:29.326373"
+  },
+  {
     "id": "1GYS4RKL5PR397634-d81dde9b-c36a",
     "vin": "1GYS4RKL5PR397634",
     "year": 2023,
@@ -64,9 +122,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 57,
+    "days_on_market": 58,
     "first_seen": "2026-07-13T14:52:56.372295",
-    "last_seen": "2026-07-14T03:18:15.202288"
+    "last_seen": "2026-07-14T08:21:29.326373"
   },
   {
     "id": "1GYS4RKL4NR355873-3692586c-d25f",
@@ -120,9 +178,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 16,
+    "days_on_market": 17,
     "first_seen": "2026-07-09T10:03:37.906883",
-    "last_seen": "2026-07-14T03:18:15.202288"
+    "last_seen": "2026-07-14T08:21:29.326373"
   },
   {
     "id": "1GYS4RKL1PR300039-a1751be9-895f",
@@ -175,8 +233,8 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 39,
+    "days_on_market": 40,
     "first_seen": "2026-07-06T10:54:33.179105",
-    "last_seen": "2026-07-14T03:18:15.202288"
+    "last_seen": "2026-07-14T08:21:29.326373"
   }
 ]
