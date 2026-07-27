@@ -5,6 +5,7 @@ Searches MarketCheck API for matching listings and sends Discord notifications.
 
 import json
 import os
+import re
 import sys
 import time
 from datetime import datetime
@@ -311,6 +312,53 @@ def send_discord(listing: dict, deal_text: str, deal_color: int, market_median: 
 
     requests.post(DISCORD_WEBHOOK_URL, json={"username": "🚙 Escalade Hunter", "embeds": [embed]}, timeout=15).raise_for_status()
 
+# ── Failure alerting ───────────────────────────────────────────────────────────
+
+def _redact(text: str) -> str:
+    """Strip the API key out of anything we're about to post publicly.
+
+    requests puts the full request URL in HTTPError messages, and that URL
+    carries api_key=... — GitHub masks it in Actions logs, but Discord would
+    not, so scrub it before it ever leaves this process.
+    """
+    return re.sub(r"(api_key=)[^&\s]+", r"\1***", text)
+
+def send_failure_alert(err: Exception) -> None:
+    """Tell Discord when a run dies.
+
+    Without this a broken bot is invisible: the site keeps serving the last
+    good listings.json and looks perfectly healthy while the hunt is dead.
+    Never raises — a failed alert must not mask the original failure.
+    """
+    headline = f"{type(err).__name__}"
+    hint     = "Check the GitHub Actions log for the full traceback."
+
+    resp = getattr(err, "response", None)
+    if resp is not None:
+        code = resp.status_code
+        headline = f"MarketCheck returned HTTP {code}"
+        if code == 429:
+            hint = ("Rate limited or out of quota — check your MarketCheck plan "
+                    "and daily call allowance. The hunt is paused until this clears.")
+        elif code in (401, 403):
+            hint = "Auth rejected — the MARKETCHECK_API_KEY secret may be expired or revoked."
+
+    embed = {
+        "title":       "⚠️ Escalade Hunter run failed",
+        "color":       0xFF3333,
+        "description": f"**{headline}**\n{hint}",
+        "fields":      [{"name": "Error", "value": f"```{_redact(str(err))[:900]}```", "inline": False}],
+        "timestamp":   datetime.utcnow().isoformat(),
+        "footer":      {"text": "Escalade Hunter Bot · no listings were checked this run"},
+    }
+    try:
+        requests.post(DISCORD_WEBHOOK_URL,
+                      json={"username": "🚙 Escalade Hunter", "embeds": [embed]},
+                      timeout=15).raise_for_status()
+        print("  📣 Sent failure alert to Discord", file=sys.stderr)
+    except Exception as e:
+        print(f"  ⚠️  Could not send failure alert: {e}", file=sys.stderr)
+
 # ── Web record builder ─────────────────────────────────────────────────────────
 
 def build_web_record(listing: dict, deal_text: str, deal_color_hex: str, market_median: float, radius: int) -> dict:
@@ -454,4 +502,9 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as err:
+        # Alert first, then re-raise so the Actions run still shows as failed.
+        send_failure_alert(err)
+        raise
