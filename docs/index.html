@@ -111,12 +111,12 @@
     display:flex;align-items:center;gap:9px;
     font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--gold);
     text-transform:uppercase;letter-spacing:1.5px;text-shadow:0 0 12px rgba(255,192,58,.4);
-    white-space:nowrap;
+    white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis;
   }
-  .drawer-title i{width:16px;height:16px;display:inline-block;
+  .drawer-title i{width:16px;height:16px;display:inline-block;flex-shrink:0;
     background:linear-gradient(135deg,var(--gold),var(--red));border-radius:2px;
     clip-path:polygon(0 0,70% 0,100% 30%,100% 100%,30% 100%,0 70%)}
-  .drawer-head .results-count{margin-left:auto}
+  .drawer-head .results-count{margin-left:auto;min-width:0;overflow:hidden;text-overflow:ellipsis}
   .drawer-chevron{
     margin-left:auto;color:var(--gold);font-size:16px;line-height:1;
     transition:transform .3s ease;flex-shrink:0;
@@ -347,6 +347,13 @@
     .filter-group select,.sort-group select,.filter-group input[type=range]{min-width:110px}
     .grid{grid-template-columns:1fr}
     .searchbar{position:static}
+    /* tighter gutters so the header row (title + count + chevron) still fits */
+    .drawer-head{padding:14px 16px;gap:8px}
+    .drawer-title{font-size:11px;letter-spacing:.8px;gap:7px}
+    .drawer-head .results-count{font-size:12px;letter-spacing:.5px}
+    .drawer .searchbar-inner{padding:2px 16px 18px}
+    .drawer .finance-inner{padding:2px 16px 0}
+    .drawer .finance-note{padding:0 16px 14px}
   }
 </style>
 </head>
