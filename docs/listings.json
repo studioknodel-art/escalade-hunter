@@ -1,12 +1,12 @@
 [
   {
-    "id": "1GYS4RKL5PR397634-8a9ce3e9-7489",
+    "id": "1GYS4RKL5PR397634-ccc37883-77b9",
     "vin": "1GYS4RKL5PR397634",
     "year": 2023,
     "make": "Cadillac",
     "model": "Escalade ESV",
     "trim": "Sport Platinum",
-    "price": 72479.0,
+    "price": 71998.0,
     "miles": 62646,
     "exterior_color": "Dark Moon Blue Metallic",
     "interior_color": null,
@@ -58,15 +58,15 @@
     "title_confirmed": false,
     "preferred_trim": true,
     "over_budget": true,
-    "over_budget_amt": 7479,
-    "deal_label": "\ud83d\udd36 NEAR MISS (+$7,479 over budget)",
+    "over_budget_amt": 6998,
+    "deal_label": "\ud83d\udd36 NEAR MISS (+$6,998 over budget)",
     "deal_color": "#E2724B",
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 77,
-    "first_seen": "2026-08-01T03:39:04.912687",
-    "last_seen": "2026-08-03T03:41:07.389463"
+    "days_on_market": 78,
+    "first_seen": "2026-08-03T10:00:33.135559",
+    "last_seen": "2026-08-03T10:00:33.135651"
   },
   {
     "id": "1GYS4RKL2PR118740-a8a82644-e57c",
@@ -225,9 +225,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 122,
+    "days_on_market": 123,
     "first_seen": "2026-08-01T03:39:03.762892",
-    "last_seen": "2026-08-03T03:41:07.389463"
+    "last_seen": "2026-08-03T10:00:33.135651"
   },
   {
     "id": "1GYS4MKL5NR186658-f331e2b0-5f95",
@@ -265,8 +265,8 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 14,
+    "days_on_market": 15,
     "first_seen": "2026-08-01T03:39:01.939053",
-    "last_seen": "2026-08-03T03:41:07.389463"
+    "last_seen": "2026-08-03T10:00:33.135651"
   }
 ]
