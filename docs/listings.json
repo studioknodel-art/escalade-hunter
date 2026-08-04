@@ -64,9 +64,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 78,
+    "days_on_market": 79,
     "first_seen": "2026-08-03T10:00:33.135559",
-    "last_seen": "2026-08-04T03:25:52.406772"
+    "last_seen": "2026-08-04T08:50:05.475337"
   },
   {
     "id": "1GYS4RKL2PR118740-a8a82644-e57c",
@@ -225,9 +225,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 123,
+    "days_on_market": 124,
     "first_seen": "2026-08-01T03:39:03.762892",
-    "last_seen": "2026-08-04T03:25:52.406772"
+    "last_seen": "2026-08-04T08:50:05.475337"
   },
   {
     "id": "1GYS4MKL5NR186658-f331e2b0-5f95",
@@ -265,8 +265,8 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 15,
+    "days_on_market": 16,
     "first_seen": "2026-08-01T03:39:01.939053",
-    "last_seen": "2026-08-04T03:25:52.406772"
+    "last_seen": "2026-08-04T08:50:05.475337"
   }
 ]
