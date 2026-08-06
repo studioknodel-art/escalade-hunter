@@ -156,18 +156,27 @@ def has_clean_title_confirmed(listing: dict) -> bool:
 # ── API calls ──────────────────────────────────────────────────────────────────
 
 def fetch_listings(radius: int) -> list[dict]:
-    """Page through ALL ESVs in radius.
+    """Page through ESVs in radius, stopping once we pass the price ceiling.
 
     MarketCheck ignores the year_min/price_max/miles_max query params on this
-    plan, so we must pull every result and filter client-side. We still send
-    the params (harmless if honored) but never rely on them. A hard cap of
-    MAX_ROWS protects the daily API quota.
+    plan, so we must pull results and filter client-side. We still send the
+    params (harmless if honored) but never rely on them.
+
+    Results come back sorted by price ascending, so once a page's highest price
+    clears NEAR_MISS_PRICE_MAX every remaining page is more expensive still and
+    would only be discarded by filter_listings() — stop rather than pay for it.
+    Nothing in range is lost: the cars we skip are strictly above the ceiling.
+
+    The ascending order is re-checked on each page before it's trusted, because
+    this plan already ignores other query params and could ignore sort_by too;
+    an unsorted page falls back to paging normally. MAX_ROWS stays as a cap.
     """
     url = "https://mc-api.marketcheck.com/v2/search/car/active"
     PAGE = 50
     MAX_ROWS = 400
     all_listings: list[dict] = []
     start = 0
+    pages = 0
     while start < MAX_ROWS:
         params = {
             "api_key":   MARKETCHECK_API_KEY,
@@ -188,11 +197,21 @@ def fetch_listings(radius: int) -> list[dict]:
         data = resp.json()
         page = data.get("listings", [])
         all_listings.extend(page)
+        pages += 1
         num_found = data.get("num_found", 0)
         start += PAGE
         if start >= num_found or not page:
             break
+
+        # Everything past the ceiling is dead weight — see docstring. Ignore
+        # zero/missing prices, which sort to the front and say nothing here.
+        priced = [p for p in (l.get("price") or 0 for l in page) if p > 0]
+        if priced and priced == sorted(priced) and priced[-1] > NEAR_MISS_PRICE_MAX:
+            print(f"  ⏭  Prices past ${NEAR_MISS_PRICE_MAX:,} — stopped after {pages} page(s)")
+            break
+
         time.sleep(0.3)
+    print(f"  🔎 {pages} API page request(s) for {radius}mi search")
     return all_listings
 
 def fetch_market_stats(year: int) -> float:
