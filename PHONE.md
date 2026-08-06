@@ -20,7 +20,7 @@ Claude edits the files, commits, and pushes. The bot auto-deploys the site in ~2
 
 ---
 
-## 🔄 Force a search run right now (don't wait 6 hours)
+## 🔄 Force a search run right now (don't wait for 6 AM / 6 PM)
 
 1. Go to **https://github.com/studioknodel-art/escalade-hunter** in your phone browser
    (or the **GitHub mobile app**)

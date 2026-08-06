@@ -18,7 +18,7 @@ Automated bot that searches for a **Cadillac Escalade ESV** matching specific cr
 | Required Features | Super Cruise, Rear Seat Entertainment |
 | Title | Clean only |
 | Search Radius | up to 100 miles from 75032 (distance shown per car) |
-| Check Frequency | Every 6 hours |
+| Check Frequency | Twice daily — 6 AM & 6 PM Central |
 
 ### Near-miss band
 A car that meets every requirement except price — sitting between $65,000 and
@@ -76,7 +76,8 @@ git push -u origin main
 
 1. Go to [marketcheck.com](https://www.marketcheck.com/api-portal)
 2. Sign up for a free account
-3. Create an API key (free tier: 1,000 calls/day — more than enough at 6-hour intervals)
+3. Create an API key, and check whether your plan's call cap is **per day or per
+   month** — the two run out very differently (see "API usage" below)
 4. Copy your API key
 
 ### Step 4 — Create a Discord webhook
@@ -104,7 +105,27 @@ git push -u origin main
 3. Click **Run workflow** → **Run workflow**
 4. Watch it run — you should see output in the logs within a minute
 
-After that, it runs automatically every 6 hours.
+After that, it runs automatically twice a day.
+
+---
+
+## API usage
+
+Each run costs a handful of MarketCheck calls: one paginated search, plus one
+price-statistics lookup per model year among the *new* listings found (cached
+per run, so a run with no new cars makes none).
+
+Search results come back sorted by price ascending, and `fetch_listings()`
+stops paging as soon as prices clear `NEAR_MISS_PRICE_MAX` — everything beyond
+that would only be discarded anyway. In testing this cut the worst case from 8
+page requests to 2. Each run logs its page count (`🔎 N API page request(s)`),
+so the Actions log shows real usage.
+
+At twice daily that lands in the low tens of calls per day.
+
+**If runs start failing with HTTP 429**, that's the quota or the plan, not a
+bug — the bot will now post a Discord alert saying so. Check the plan terms
+first: a *monthly* cap runs out very differently from a daily one.
 
 ---
 

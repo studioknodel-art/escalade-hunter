@@ -2,7 +2,10 @@ name: Escalade Hunter
 
 on:
   schedule:
-    - cron: "0 0,6,12,18 * * *"
+    # Twice daily. GitHub cron is UTC with no DST handling, so these are set
+    # for US Central Daylight Time: 11:00 UTC = 6 AM CDT, 23:00 UTC = 6 PM CDT.
+    # They land an hour earlier (5 AM / 5 PM) once Central falls back to CST.
+    - cron: "0 11,23 * * *"
   workflow_dispatch:
 
 permissions:
