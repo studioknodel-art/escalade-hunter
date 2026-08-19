@@ -1,12 +1,12 @@
 [
   {
-    "id": "1GYS4MKL5NR186658-0d91cef7-7528",
+    "id": "1GYS4MKL5NR186658-85a416ab-061d",
     "vin": "1GYS4MKL5NR186658",
     "year": 2022,
     "make": "Cadillac",
     "model": "Escalade ESV",
     "trim": "Premium Luxury Platinum",
-    "price": 61997.0,
+    "price": 61377.0,
     "miles": 69066,
     "exterior_color": "Satin Steel Metallic",
     "interior_color": null,
@@ -65,8 +65,8 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 30,
-    "first_seen": "2026-08-18T12:59:10.079070",
-    "last_seen": "2026-08-19T06:56:23.918389"
+    "days_on_market": 31,
+    "first_seen": "2026-08-19T13:00:39.855104",
+    "last_seen": "2026-08-19T13:00:39.855156"
   }
 ]
