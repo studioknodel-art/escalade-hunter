@@ -1,13 +1,13 @@
 [
   {
-    "id": "1GYS4MKL0PR117864-5ba54700-ba37",
+    "id": "1GYS4MKL0PR117864-e6f00c4d-7ad2",
     "vin": "1GYS4MKL0PR117864",
     "year": 2023,
     "make": "Cadillac",
     "model": "Escalade ESV",
     "trim": "Premium Luxury Platinum",
     "price": 74814.0,
-    "miles": 22951,
+    "miles": 22952,
     "exterior_color": "Black Raven",
     "interior_color": "Dark Auburn With Jet Black Accents",
     "drivetrain": "4WD",
@@ -80,9 +80,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 25,
-    "days_on_market": 21,
-    "first_seen": "2026-09-04T11:04:37.692067",
-    "last_seen": "2026-09-06T20:18:11.907515"
+    "days_on_market": 23,
+    "first_seen": "2026-09-07T04:16:52.813851",
+    "last_seen": "2026-09-07T04:16:52.813897"
   },
   {
     "id": "1GYS4RKLXRR281347-465dcac6-c150",
@@ -144,8 +144,8 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 25,
-    "days_on_market": 185,
+    "days_on_market": 187,
     "first_seen": "2026-09-01T04:49:43.228000",
-    "last_seen": "2026-09-06T20:18:11.907515"
+    "last_seen": "2026-09-07T04:16:52.813897"
   }
 ]
