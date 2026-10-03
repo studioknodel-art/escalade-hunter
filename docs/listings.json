@@ -68,49 +68,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 127,
+    "days_on_market": 128,
     "first_seen": "2026-10-02T12:20:42.703633",
-    "last_seen": "2026-10-03T05:02:32.842074"
-  },
-  {
-    "id": "1GYS4MKL0NR310948-69d94803-14c6",
-    "vin": "1GYS4MKL0NR310948",
-    "year": 2022,
-    "make": "Cadillac",
-    "model": "Escalade ESV",
-    "trim": "Premium Luxury Platinum",
-    "price": 56024.0,
-    "miles": null,
-    "exterior_color": "Crystal White Tricoat",
-    "interior_color": "(With Linear Marquetry wood trim.)",
-    "drivetrain": "4WD",
-    "transmission": "Automatic",
-    "engine": "6.2L V8",
-    "fuel_type": "Premium Unleaded",
-    "city": "Arlington",
-    "state": "TX",
-    "dealer_name": "Frank Kent Cadillac Of Arlington",
-    "dealer_phone": "817-264-7762",
-    "dealer_website": "fkcoa.com",
-    "vdp_url": "https://www.fkcoa.com/used/CADILLAC/2022-CADILLAC-Escalade-ESV-beba153fac183203d1d9fe25225525ea.htm",
-    "photos": [
-      "https://images.dealer.com/autodata/us/color/2022/USD20CAS032D0/G1W.jpg"
-    ],
-    "description": null,
-    "super_cruise": false,
-    "rear_entertainment": false,
-    "title_confirmed": false,
-    "preferred_trim": false,
-    "over_budget": false,
-    "over_budget_amt": 0,
-    "deal_label": "\u2705 OKAY DEAL",
-    "deal_color": "#FFA500",
-    "market_median": 0.0,
-    "savings_pct": null,
-    "search_radius": 50,
-    "days_on_market": 218,
-    "first_seen": "2026-10-02T12:20:40.994570",
-    "last_seen": "2026-10-03T05:02:32.842074"
+    "last_seen": "2026-10-03T11:30:34.012698"
   },
   {
     "id": "1GYS4RKL8PR428052-eb6461ff-a0b9",
@@ -173,9 +133,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 25,
-    "days_on_market": 55,
+    "days_on_market": 56,
     "first_seen": "2026-10-01T05:32:26.363452",
-    "last_seen": "2026-10-03T05:02:32.842074"
+    "last_seen": "2026-10-03T11:30:34.012698"
   },
   {
     "id": "1GYS4MKLXPR398393-90b8f243-e58d",
@@ -213,8 +173,8 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 33,
+    "days_on_market": 34,
     "first_seen": "2026-09-19T10:45:02.616215",
-    "last_seen": "2026-10-03T05:02:32.842074"
+    "last_seen": "2026-10-03T11:30:34.012698"
   }
 ]
