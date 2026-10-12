@@ -1,5 +1,45 @@
 [
   {
+    "id": "1GYS4RKL6PR336356-a36fd417-3132",
+    "vin": "1GYS4RKL6PR336356",
+    "year": 2023,
+    "make": "Cadillac",
+    "model": "Escalade ESV",
+    "trim": "Sport Platinum",
+    "price": 70537.0,
+    "miles": 66285,
+    "exterior_color": "Black Raven",
+    "interior_color": "Jet Black",
+    "drivetrain": "4WD",
+    "transmission": "Automatic",
+    "engine": "6.2L V8",
+    "fuel_type": "Premium Unleaded",
+    "city": "McKinney",
+    "state": "TX",
+    "dealer_name": "Pat Lobb Toyota Of Mckinney",
+    "dealer_phone": "469-676-8024",
+    "dealer_website": "toyotaofmckinney.com",
+    "vdp_url": "https://www.toyotaofmckinney.com/used/CADILLAC/2023-CADILLAC-Escalade-ESV-in-McKinney-near-Plano-TX-26d83b32ac181bdb9ee3abf5fb80cc5c.htm",
+    "photos": [
+      "https://images.dealer.com/ddc/vehicles/2023/CADILLAC/Escalade%20ESV/SUV/trim_Sport_Platinum_b354a4/color/Black%20Raven-GBA-5,5,7-640-en_US.jpg"
+    ],
+    "description": null,
+    "super_cruise": false,
+    "rear_entertainment": false,
+    "title_confirmed": false,
+    "preferred_trim": true,
+    "over_budget": true,
+    "over_budget_amt": 5537,
+    "deal_label": "\ud83d\udd36 NEAR MISS (+$5,537 over budget)",
+    "deal_color": "#E2724B",
+    "market_median": 0.0,
+    "savings_pct": null,
+    "search_radius": 25,
+    "days_on_market": 3,
+    "first_seen": "2026-10-12T15:09:03.372484",
+    "last_seen": "2026-10-12T15:09:03.372524"
+  },
+  {
     "id": "1GYS4RKL1PR433836-23cefa55-3bfb",
     "vin": "1GYS4RKL1PR433836",
     "year": 2023,
@@ -69,9 +109,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 83,
+    "days_on_market": 84,
     "first_seen": "2026-10-10T12:19:21.601285",
-    "last_seen": "2026-10-12T05:39:53.019759"
+    "last_seen": "2026-10-12T15:09:03.372524"
   },
   {
     "id": "1GYS4MKLXPR398393-dff89602-826d",
@@ -140,9 +180,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 42,
+    "days_on_market": 43,
     "first_seen": "2026-10-09T13:02:31.368909",
-    "last_seen": "2026-10-12T05:39:53.019759"
+    "last_seen": "2026-10-12T15:09:03.372524"
   },
   {
     "id": "1GYS4RKL8PR428052-7ce7db9f-12ee",
@@ -205,9 +245,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 25,
-    "days_on_market": 64,
+    "days_on_market": 65,
     "first_seen": "2026-10-07T13:08:19.558343",
-    "last_seen": "2026-10-12T05:39:53.019759"
+    "last_seen": "2026-10-12T15:09:03.372524"
   },
   {
     "id": "1GYS4RKL9RR318498-f87034f4-28e8",
@@ -278,9 +318,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 136,
+    "days_on_market": 137,
     "first_seen": "2026-10-07T13:08:17.758812",
-    "last_seen": "2026-10-12T05:39:53.019759"
+    "last_seen": "2026-10-12T15:09:03.372524"
   },
   {
     "id": "1GYS4RKL5PR405280-b406cea0-c4f4",
@@ -336,8 +376,8 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 19,
+    "days_on_market": 20,
     "first_seen": "2026-10-05T14:21:46.975490",
-    "last_seen": "2026-10-12T05:39:53.019759"
+    "last_seen": "2026-10-12T15:09:03.372524"
   }
 ]
