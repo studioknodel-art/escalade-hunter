@@ -35,9 +35,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 25,
-    "days_on_market": 3,
+    "days_on_market": 4,
     "first_seen": "2026-10-12T15:09:03.372484",
-    "last_seen": "2026-10-13T00:30:02.009659"
+    "last_seen": "2026-10-13T14:01:13.774100"
   },
   {
     "id": "1GYS4RKL1PR433836-23cefa55-3bfb",
@@ -109,9 +109,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 84,
+    "days_on_market": 85,
     "first_seen": "2026-10-10T12:19:21.601285",
-    "last_seen": "2026-10-13T00:30:02.009659"
+    "last_seen": "2026-10-13T14:01:13.774100"
   },
   {
     "id": "1GYS4MKLXPR398393-dff89602-826d",
@@ -180,9 +180,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 43,
+    "days_on_market": 44,
     "first_seen": "2026-10-09T13:02:31.368909",
-    "last_seen": "2026-10-13T00:30:02.009659"
+    "last_seen": "2026-10-13T14:01:13.774100"
   },
   {
     "id": "1GYS4RKL8PR428052-7ce7db9f-12ee",
@@ -245,9 +245,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 25,
-    "days_on_market": 65,
+    "days_on_market": 66,
     "first_seen": "2026-10-07T13:08:19.558343",
-    "last_seen": "2026-10-13T00:30:02.009659"
+    "last_seen": "2026-10-13T14:01:13.774100"
   },
   {
     "id": "1GYS4RKL9RR318498-f87034f4-28e8",
@@ -318,9 +318,9 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 137,
+    "days_on_market": 138,
     "first_seen": "2026-10-07T13:08:17.758812",
-    "last_seen": "2026-10-13T00:30:02.009659"
+    "last_seen": "2026-10-13T14:01:13.774100"
   },
   {
     "id": "1GYS4RKL5PR405280-b406cea0-c4f4",
@@ -376,8 +376,8 @@
     "market_median": 0.0,
     "savings_pct": null,
     "search_radius": 50,
-    "days_on_market": 20,
+    "days_on_market": 21,
     "first_seen": "2026-10-05T14:21:46.975490",
-    "last_seen": "2026-10-13T00:30:02.009659"
+    "last_seen": "2026-10-13T14:01:13.774100"
   }
 ]
