@@ -64,7 +64,7 @@
     "search_radius": 50,
     "days_on_market": 128,
     "first_seen": "2026-11-25T08:08:33.692548",
-    "last_seen": "2026-11-25T08:08:33.692660"
+    "last_seen": "2026-11-25T21:32:17.109205"
   },
   {
     "id": "1GYS4MKLXPR398393-1db29c80-8f63",
@@ -135,7 +135,7 @@
     "search_radius": 50,
     "days_on_market": 87,
     "first_seen": "2026-11-25T08:08:32.524348",
-    "last_seen": "2026-11-25T08:08:33.692660"
+    "last_seen": "2026-11-25T21:32:17.109205"
   },
   {
     "id": "1GYS4RKL2PR552091-62b7d25e-0e39",
@@ -252,7 +252,7 @@
     "search_radius": 50,
     "days_on_market": 51,
     "first_seen": "2026-11-24T09:37:37.338062",
-    "last_seen": "2026-11-25T08:08:33.692660"
+    "last_seen": "2026-11-25T21:32:17.109205"
   },
   {
     "id": "1GYS4MKLXNR322976-cc11f8ea-0f52",
@@ -292,7 +292,7 @@
     "search_radius": 25,
     "days_on_market": 19,
     "first_seen": "2026-11-24T09:37:36.230659",
-    "last_seen": "2026-11-25T08:08:33.692660"
+    "last_seen": "2026-11-25T21:32:17.109205"
   },
   {
     "id": "1GYS4MKL9PR132301-7d5deb85-e3f3",
@@ -393,7 +393,7 @@
     "search_radius": 50,
     "days_on_market": 53,
     "first_seen": "2026-11-24T09:37:33.682588",
-    "last_seen": "2026-11-25T08:08:33.692660"
+    "last_seen": "2026-11-25T21:32:17.109205"
   },
   {
     "id": "1GYS4RKL6PR314261-ff4a8a6d-249a",
@@ -482,7 +482,7 @@
     "search_radius": 100,
     "days_on_market": 133,
     "first_seen": "2026-11-21T19:01:06.666702",
-    "last_seen": "2026-11-25T08:08:33.692660"
+    "last_seen": "2026-11-25T21:32:17.109205"
   },
   {
     "id": "1GYS4RKL5PR405280-179f670a-e8d9",
@@ -540,7 +540,7 @@
     "search_radius": 50,
     "days_on_market": 64,
     "first_seen": "2026-11-21T19:01:05.480922",
-    "last_seen": "2026-11-25T08:08:33.692660"
+    "last_seen": "2026-11-25T21:32:17.109205"
   },
   {
     "id": "1GYS4RKL7PR204450-a7ebfd6d-07a3",
@@ -580,7 +580,7 @@
     "search_radius": 25,
     "days_on_market": 102,
     "first_seen": "2026-11-21T19:01:04.278768",
-    "last_seen": "2026-11-25T08:08:33.692660"
+    "last_seen": "2026-11-25T21:32:17.109205"
   },
   {
     "id": "1GYS4RKL9PR477325-4f2c655f-bf09",
@@ -644,7 +644,7 @@
     "search_radius": 50,
     "days_on_market": 49,
     "first_seen": "2026-11-19T20:24:56.687269",
-    "last_seen": "2026-11-25T08:08:33.692660"
+    "last_seen": "2026-11-25T21:32:17.109205"
   },
   {
     "id": "1GYS4RKL1PR300039-5872e47e-00c8",
@@ -735,7 +735,7 @@
     "search_radius": 50,
     "days_on_market": 77,
     "first_seen": "2026-11-18T20:20:17.673134",
-    "last_seen": "2026-11-25T08:08:33.692660"
+    "last_seen": "2026-11-25T21:32:17.109205"
   },
   {
     "id": "1GYS4RKL6PR336356-e1b14ea3-9f01",
@@ -816,6 +816,6 @@
     "search_radius": 25,
     "days_on_market": 47,
     "first_seen": "2026-11-01T05:44:10.261292",
-    "last_seen": "2026-11-25T08:08:33.692660"
+    "last_seen": "2026-11-25T21:32:17.109205"
   }
 ]
