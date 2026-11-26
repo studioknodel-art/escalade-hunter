@@ -1,5 +1,69 @@
 [
   {
+    "id": "1GYS4RKL9PR477325-1c056c77-104f",
+    "vin": "1GYS4RKL9PR477325",
+    "year": 2023,
+    "make": "Cadillac",
+    "model": "Escalade ESV",
+    "trim": "Sport Platinum",
+    "price": 72989.0,
+    "miles": 44871,
+    "exterior_color": "GALACTIC GRAY METALLIC",
+    "interior_color": null,
+    "drivetrain": "AWD",
+    "transmission": "Automatic",
+    "engine": "6.2L V8",
+    "fuel_type": "Premium Unleaded",
+    "city": "Grapevine",
+    "state": "TX",
+    "dealer_name": "Sewell Cadillac Of Grapevine",
+    "dealer_phone": "817-778-8603",
+    "dealer_website": "sewellcadillac-grapevine.com",
+    "vdp_url": "https://www.sewellcadillac-grapevine.com/inventory/certified-used-2023-cadillac-escalade-esv-4wd-sport-platinum-four-wheel-drive-suv-1gys4rkl9pr477325/",
+    "photos": [
+      "https://vehicle-images.carscommerce.inc/ad34-110012711/1GYS4RKL9PR477325/7b2f0cec028cd930ecf08aea579daf2d.webp",
+      "https://vehicle-images.carscommerce.inc/a956-110012711/1GYS4RKL9PR477325/631af9f027eac699941c90a81ad0a3bf.webp",
+      "https://vehicle-images.carscommerce.inc/b91f-110012711/1GYS4RKL9PR477325/23d6d806be875843c4989ef1a3deade2.webp",
+      "https://vehicle-images.carscommerce.inc/89bf-110012711/1GYS4RKL9PR477325/1058f6363554f972de769d516bbf6e88.webp",
+      "https://vehicle-images.carscommerce.inc/b5a8-110012711/1GYS4RKL9PR477325/0ff8060a4393a143bdd1e2ca3b2d37df.webp",
+      "https://vehicle-images.carscommerce.inc/4567-110012711/1GYS4RKL9PR477325/25de033e967db8236ba035605343c42c.webp",
+      "https://vehicle-images.carscommerce.inc/b66c-110012711/1GYS4RKL9PR477325/4204400ec7a09060a277520f51ac553b.webp",
+      "https://vehicle-images.carscommerce.inc/7f17-110012711/1GYS4RKL9PR477325/0789ed44aae2acd384afaeecab9af217.webp",
+      "https://vehicle-images.carscommerce.inc/86ca-110012711/1GYS4RKL9PR477325/f0e0f18549f01d06a9024507765a5474.webp",
+      "https://vehicle-images.carscommerce.inc/ede1-110012711/1GYS4RKL9PR477325/faf4ca9ad61f60364232a9648247acb9.webp",
+      "https://vehicle-images.carscommerce.inc/30bd-110012711/1GYS4RKL9PR477325/ec21c6e8b48f852025f64a4e428f8ca0.webp",
+      "https://vehicle-images.carscommerce.inc/13d5-110012711/1GYS4RKL9PR477325/428419f6d41c881fda1b2a0d3e650741.webp",
+      "https://vehicle-images.carscommerce.inc/8ed6-110012711/1GYS4RKL9PR477325/cfa7f038608495d6410ec34a51ee0ca2.webp",
+      "https://vehicle-images.carscommerce.inc/f755-110012711/1GYS4RKL9PR477325/2086ea993052ebd8e5ce6e1d83715335.webp",
+      "https://vehicle-images.carscommerce.inc/c727-110012711/1GYS4RKL9PR477325/685144af74d652f8d9da800a7890aad1.webp",
+      "https://vehicle-images.carscommerce.inc/4a42-110012711/1GYS4RKL9PR477325/8d0943ab7fd1b9ff4714d99149ad02a3.webp",
+      "https://vehicle-images.carscommerce.inc/ccc2-110012711/1GYS4RKL9PR477325/da3aa4394e77a5356033fd0a590cae49.webp",
+      "https://vehicle-images.carscommerce.inc/3d37-110012711/1GYS4RKL9PR477325/88142990c8d5a70e50dd773de8bdb2df.webp",
+      "https://vehicle-images.carscommerce.inc/bbbc-110012711/1GYS4RKL9PR477325/9aa4b4464a95843160281c8422e97185.webp",
+      "https://vehicle-images.carscommerce.inc/981f-110012711/1GYS4RKL9PR477325/62c8b0fdcc1cc057b7490ee35b22a9e3.webp",
+      "https://vehicle-images.carscommerce.inc/ef53-110012711/1GYS4RKL9PR477325/7c0bcdac62ba6faa5d99824dde432ca5.webp",
+      "https://vehicle-images.carscommerce.inc/b471-110012711/1GYS4RKL9PR477325/bc7586ec35195bdcacf5fb1d38d2cd16.webp",
+      "https://vehicle-images.carscommerce.inc/8f5e-110012711/1GYS4RKL9PR477325/a39729a0878f91bee6167713c1f3526b.webp",
+      "https://vehicle-images.carscommerce.inc/70a1-110012711/1GYS4RKL9PR477325/8e00ce8a465ca8727c728824c982c94a.webp",
+      "https://vehicle-images.carscommerce.inc/2878-110012711/1GYS4RKL9PR477325/db5bf0cf6d349e222f9400e43f819704.webp"
+    ],
+    "description": null,
+    "super_cruise": false,
+    "rear_entertainment": false,
+    "title_confirmed": false,
+    "preferred_trim": true,
+    "over_budget": true,
+    "over_budget_amt": 7989,
+    "deal_label": "\ud83d\udd36 NEAR MISS (+$7,989 over budget)",
+    "deal_color": "#E2724B",
+    "market_median": 0.0,
+    "savings_pct": null,
+    "search_radius": 50,
+    "days_on_market": 50,
+    "first_seen": "2026-11-26T21:20:01.974252",
+    "last_seen": "2026-11-26T21:20:01.974293"
+  },
+  {
     "id": "1GYS4RKL1PR433836-92e0954b-d113",
     "vin": "1GYS4RKL1PR433836",
     "year": 2023,
@@ -64,7 +128,7 @@
     "search_radius": 50,
     "days_on_market": 129,
     "first_seen": "2026-11-25T08:08:33.692548",
-    "last_seen": "2026-11-26T07:57:51.465833"
+    "last_seen": "2026-11-26T21:20:01.974293"
   },
   {
     "id": "1GYS4MKLXPR398393-1db29c80-8f63",
@@ -135,7 +199,7 @@
     "search_radius": 50,
     "days_on_market": 88,
     "first_seen": "2026-11-25T08:08:32.524348",
-    "last_seen": "2026-11-26T07:57:51.465833"
+    "last_seen": "2026-11-26T21:20:01.974293"
   },
   {
     "id": "1GYS4RKL2PR552091-62b7d25e-0e39",
@@ -252,7 +316,7 @@
     "search_radius": 50,
     "days_on_market": 52,
     "first_seen": "2026-11-24T09:37:37.338062",
-    "last_seen": "2026-11-26T07:57:51.465833"
+    "last_seen": "2026-11-26T21:20:01.974293"
   },
   {
     "id": "1GYS4MKLXNR322976-cc11f8ea-0f52",
@@ -292,7 +356,7 @@
     "search_radius": 25,
     "days_on_market": 20,
     "first_seen": "2026-11-24T09:37:36.230659",
-    "last_seen": "2026-11-26T07:57:51.465833"
+    "last_seen": "2026-11-26T21:20:01.974293"
   },
   {
     "id": "1GYS4MKL9PR132301-7d5deb85-e3f3",
@@ -393,7 +457,7 @@
     "search_radius": 50,
     "days_on_market": 54,
     "first_seen": "2026-11-24T09:37:33.682588",
-    "last_seen": "2026-11-26T07:57:51.465833"
+    "last_seen": "2026-11-26T21:20:01.974293"
   },
   {
     "id": "1GYS4RKL6PR314261-ff4a8a6d-249a",
@@ -482,7 +546,7 @@
     "search_radius": 100,
     "days_on_market": 134,
     "first_seen": "2026-11-21T19:01:06.666702",
-    "last_seen": "2026-11-26T07:57:51.465833"
+    "last_seen": "2026-11-26T21:20:01.974293"
   },
   {
     "id": "1GYS4RKL5PR405280-179f670a-e8d9",
@@ -540,7 +604,7 @@
     "search_radius": 50,
     "days_on_market": 65,
     "first_seen": "2026-11-21T19:01:05.480922",
-    "last_seen": "2026-11-26T07:57:51.465833"
+    "last_seen": "2026-11-26T21:20:01.974293"
   },
   {
     "id": "1GYS4RKL7PR204450-a7ebfd6d-07a3",
@@ -580,71 +644,7 @@
     "search_radius": 25,
     "days_on_market": 103,
     "first_seen": "2026-11-21T19:01:04.278768",
-    "last_seen": "2026-11-26T07:57:51.465833"
-  },
-  {
-    "id": "1GYS4RKL9PR477325-4f2c655f-bf09",
-    "vin": "1GYS4RKL9PR477325",
-    "year": 2023,
-    "make": "Cadillac",
-    "model": "Escalade ESV",
-    "trim": "Sport Platinum",
-    "price": 74679.0,
-    "miles": 44871,
-    "exterior_color": "GALACTIC GRAY METALLIC",
-    "interior_color": "(With Natural Figured Ash wood trim.)",
-    "drivetrain": "AWD",
-    "transmission": "Automatic",
-    "engine": "6.2L V8",
-    "fuel_type": "Premium Unleaded",
-    "city": "Grapevine",
-    "state": "TX",
-    "dealer_name": "Sewell Cadillac Of Grapevine",
-    "dealer_phone": "817-778-8603",
-    "dealer_website": "sewellcadillac-grapevine.com",
-    "vdp_url": "https://www.sewellcadillac-grapevine.com/inventory/certified-used-2023-cadillac-escalade-esv-4wd-sport-platinum-four-wheel-drive-suv-1gys4rkl9pr477325/",
-    "photos": [
-      "https://vehicle-images.carscommerce.inc/ad34-110012711/1GYS4RKL9PR477325/7b2f0cec028cd930ecf08aea579daf2d.webp",
-      "https://vehicle-images.carscommerce.inc/a956-110012711/1GYS4RKL9PR477325/631af9f027eac699941c90a81ad0a3bf.webp",
-      "https://vehicle-images.carscommerce.inc/b91f-110012711/1GYS4RKL9PR477325/23d6d806be875843c4989ef1a3deade2.webp",
-      "https://vehicle-images.carscommerce.inc/89bf-110012711/1GYS4RKL9PR477325/1058f6363554f972de769d516bbf6e88.webp",
-      "https://vehicle-images.carscommerce.inc/b5a8-110012711/1GYS4RKL9PR477325/0ff8060a4393a143bdd1e2ca3b2d37df.webp",
-      "https://vehicle-images.carscommerce.inc/4567-110012711/1GYS4RKL9PR477325/25de033e967db8236ba035605343c42c.webp",
-      "https://vehicle-images.carscommerce.inc/b66c-110012711/1GYS4RKL9PR477325/4204400ec7a09060a277520f51ac553b.webp",
-      "https://vehicle-images.carscommerce.inc/7f17-110012711/1GYS4RKL9PR477325/0789ed44aae2acd384afaeecab9af217.webp",
-      "https://vehicle-images.carscommerce.inc/86ca-110012711/1GYS4RKL9PR477325/f0e0f18549f01d06a9024507765a5474.webp",
-      "https://vehicle-images.carscommerce.inc/ede1-110012711/1GYS4RKL9PR477325/faf4ca9ad61f60364232a9648247acb9.webp",
-      "https://vehicle-images.carscommerce.inc/30bd-110012711/1GYS4RKL9PR477325/ec21c6e8b48f852025f64a4e428f8ca0.webp",
-      "https://vehicle-images.carscommerce.inc/13d5-110012711/1GYS4RKL9PR477325/428419f6d41c881fda1b2a0d3e650741.webp",
-      "https://vehicle-images.carscommerce.inc/8ed6-110012711/1GYS4RKL9PR477325/cfa7f038608495d6410ec34a51ee0ca2.webp",
-      "https://vehicle-images.carscommerce.inc/f755-110012711/1GYS4RKL9PR477325/2086ea993052ebd8e5ce6e1d83715335.webp",
-      "https://vehicle-images.carscommerce.inc/c727-110012711/1GYS4RKL9PR477325/685144af74d652f8d9da800a7890aad1.webp",
-      "https://vehicle-images.carscommerce.inc/4a42-110012711/1GYS4RKL9PR477325/8d0943ab7fd1b9ff4714d99149ad02a3.webp",
-      "https://vehicle-images.carscommerce.inc/ccc2-110012711/1GYS4RKL9PR477325/da3aa4394e77a5356033fd0a590cae49.webp",
-      "https://vehicle-images.carscommerce.inc/3d37-110012711/1GYS4RKL9PR477325/88142990c8d5a70e50dd773de8bdb2df.webp",
-      "https://vehicle-images.carscommerce.inc/bbbc-110012711/1GYS4RKL9PR477325/9aa4b4464a95843160281c8422e97185.webp",
-      "https://vehicle-images.carscommerce.inc/981f-110012711/1GYS4RKL9PR477325/62c8b0fdcc1cc057b7490ee35b22a9e3.webp",
-      "https://vehicle-images.carscommerce.inc/ef53-110012711/1GYS4RKL9PR477325/7c0bcdac62ba6faa5d99824dde432ca5.webp",
-      "https://vehicle-images.carscommerce.inc/b471-110012711/1GYS4RKL9PR477325/bc7586ec35195bdcacf5fb1d38d2cd16.webp",
-      "https://vehicle-images.carscommerce.inc/8f5e-110012711/1GYS4RKL9PR477325/a39729a0878f91bee6167713c1f3526b.webp",
-      "https://vehicle-images.carscommerce.inc/70a1-110012711/1GYS4RKL9PR477325/8e00ce8a465ca8727c728824c982c94a.webp",
-      "https://vehicle-images.carscommerce.inc/2878-110012711/1GYS4RKL9PR477325/db5bf0cf6d349e222f9400e43f819704.webp"
-    ],
-    "description": null,
-    "super_cruise": false,
-    "rear_entertainment": false,
-    "title_confirmed": false,
-    "preferred_trim": true,
-    "over_budget": true,
-    "over_budget_amt": 9679,
-    "deal_label": "\ud83d\udd36 NEAR MISS (+$9,679 over budget)",
-    "deal_color": "#E2724B",
-    "market_median": 0.0,
-    "savings_pct": null,
-    "search_radius": 50,
-    "days_on_market": 49,
-    "first_seen": "2026-11-19T20:24:56.687269",
-    "last_seen": "2026-11-26T07:57:51.465833"
+    "last_seen": "2026-11-26T21:20:01.974293"
   },
   {
     "id": "1GYS4RKL1PR300039-5872e47e-00c8",
@@ -735,7 +735,7 @@
     "search_radius": 50,
     "days_on_market": 78,
     "first_seen": "2026-11-18T20:20:17.673134",
-    "last_seen": "2026-11-26T07:57:51.465833"
+    "last_seen": "2026-11-26T21:20:01.974293"
   },
   {
     "id": "1GYS4RKL6PR336356-e1b14ea3-9f01",
@@ -816,6 +816,6 @@
     "search_radius": 25,
     "days_on_market": 48,
     "first_seen": "2026-11-01T05:44:10.261292",
-    "last_seen": "2026-11-26T07:57:51.465833"
+    "last_seen": "2026-11-26T21:20:01.974293"
   }
 ]
